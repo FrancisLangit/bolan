@@ -1,9 +1,12 @@
 import pygame, sys
 
+import objects
+
 from settings import Settings
+from spritesheet import SpriteSheet
 
 
-class Main:
+class BolanGame:
 	"""
 	Overall class to manage game assets and behavior.
 	"""
@@ -15,11 +18,15 @@ class Main:
 		"""
 		pygame.init()
 		self.settings = Settings()
+		self.spritesheet = SpriteSheet('images/spritesheet.png')
 
 		self.screen = pygame.display.set_mode((
 			self.settings.screen_width,
 			self.settings.screen_height,
 		))
+
+		self.bolan = objects.Bolan(self)
+
 		pygame.display.set_caption("Bolan")
 
 
@@ -50,9 +57,12 @@ class Main:
 		Update display of game.
 		"""
 		self.screen.fill((255, 255, 255))
+
+		self.screen.blit(self.bolan.image, (0, 0))
+
 		pygame.display.flip()
 
 
 if __name__ == '__main__':
-	main = Main()
-	main.run()
+	bolan_game = BolanGame()
+	bolan_game.run()
