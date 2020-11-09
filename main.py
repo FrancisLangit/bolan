@@ -3,7 +3,7 @@ import pygame, sys
 from settings import Settings
 
 
-class Bolan:
+class Main:
 	"""
 	Overall class to manage game assets and behavior.
 	"""
@@ -54,5 +54,5 @@ class Bolan:
 
 
 if __name__ == '__main__':
-	bolan = Bolan()
-	bolan.run()
+	main = Main()
+	main.run()
