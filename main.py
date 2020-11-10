@@ -26,7 +26,7 @@ class BolanGame:
 		))
 
 		self.bolan = objects.Bolan(self)
-		self.desert_floor = objects.DesertFloor(self)
+		self.floor = objects.Floor(self)
 
 		pygame.display.set_caption("Bolan")
 
@@ -59,9 +59,10 @@ class BolanGame:
 		"""
 		self.screen.fill((255, 255, 255))
 
-		# self.bolan.blitme()
-		self.desert_floor.blitme()
-		self.desert_floor.x -= 1
+		self.bolan.blitme()
+		self.floor.blitme()
+
+		self.floor.update()
 
 		pygame.display.flip()
 
