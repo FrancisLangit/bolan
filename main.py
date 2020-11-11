@@ -18,7 +18,7 @@ class BolanGame:
 		"""
 		pygame.init()
 		self.settings = Settings()
-		self.spritesheet = SpriteSheet('images/spritesheet.png')
+		self.spritesheet = SpriteSheet(self.settings.spritesheet_filename)
 
 		self.screen = pygame.display.set_mode((
 			self.settings.screen_width,
@@ -28,7 +28,7 @@ class BolanGame:
 		self.bolan = objects.Bolan(self)
 		self.floor = objects.Floor(self)
 
-		pygame.display.set_caption("Bolan")
+		pygame.display.set_caption(self.settings.display_caption)
 
 
 	def run(self):
@@ -61,11 +61,14 @@ class BolanGame:
 
 		self.floor.blitme()
 		self.bolan.blitme()
-
-		self.floor.update()
-		self.bolan.update()
+		self._update_objects()
 
 		pygame.display.flip()
+
+
+	def _update_objects(self):
+		self.floor.update()
+		self.bolan.update()
 
 
 if __name__ == '__main__':

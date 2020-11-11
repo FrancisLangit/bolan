@@ -11,12 +11,11 @@ class Bolan:
 		"""Initalize Bolan class attributes."""
 		self.bolan_game = bolan_game
 		
-		self.index = 0
-
-		self.counter = 0
+		self.image_index = 0
+		self.current_frame = 0
 
 		self.images = self.images()
-		self.image = self.images[self.index]
+		self.image = self.images[self.image_index]
 
 
 	def images(self):
@@ -31,15 +30,14 @@ class Bolan:
 
 	def update(self):
 		"""Updates the image of Bolan."""
+		self.current_frame += 1
+		if self.current_frame == 60: 
+			self.current_frame = 0
+			self.image_index += 1
 
-		self.counter += 1
-		if self.counter == 60:
-			self.counter = 0
-			self.index += 1
-
-		if self.index >= len(self.images):
-			self.index = 0
-		self.image = self.images[self.index]
+		if self.image_index >= len(self.images):
+			self.image_index = 0
+		self.image = self.images[self.image_index]
 
 
 	def blitme(self):
@@ -55,20 +53,18 @@ class Floor:
 		"""Initalize Floor class attributes."""
 		self.bolan_game = bolan_game
 		self.image = self.bolan_game.spritesheet.image_at(
-			[2, 104, 2400, 26], (0, 0, 0))
+			self.bolan_game.settings.floor_rect, (0, 0, 0))
 		self.rect = self.image.get_rect()
 
 		self.x_1 = 0
-		self.y_1 = 500
-
 		self.x_2 = self.rect.width
-		self.y_2 = 500
+		self.y = self.bolan_game.settings.floor_y
 
-		self.speed = 1
+		self.speed = self.bolan_game.settings.floor_speed
 
 
 	def update(self):
-		"""Updates the coordinates of the object."""
+		"""Updates the floor object."""
 		self.x_1 -= self.speed
 		self.x_2 -= self.speed
 		if self.x_1 <= -self.rect.width:
@@ -79,5 +75,5 @@ class Floor:
 
 	def blitme(self):
 		"""Blits the floor onto the screen."""
-		self.bolan_game.screen.blit(self.image, (self.x_1, self.y_1))
-		self.bolan_game.screen.blit(self.image, (self.x_2, self.y_2))
+		self.bolan_game.screen.blit(self.image, (self.x_1, self.y))
+		self.bolan_game.screen.blit(self.image, (self.x_2, self.y))
