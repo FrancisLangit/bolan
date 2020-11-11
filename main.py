@@ -59,10 +59,11 @@ class BolanGame:
 		"""
 		self.screen.fill((255, 255, 255))
 
-		self.bolan.blitme()
 		self.floor.blitme()
+		self.bolan.blitme()
 
 		self.floor.update()
+		self.bolan.update()
 
 		pygame.display.flip()
 
