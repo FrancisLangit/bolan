@@ -14,16 +14,17 @@ class Bolan:
 		Initalize Bolan class attributes.
 		"""
 		self.bolan_game = bolan_game
-		
-		self.image_index = 0
-		self.current_frame = 0
 
+		self.x = self.bolan_game.settings.bolan_x 
+		self.y = self.bolan_game.settings.bolan_y 
+		self.width = self.bolan_game.settings.bolan_width 
+		self.height = self.bolan_game.settings.bolan_height	
+		
+		self.image_frame = 0
+		self.image_index = 0
 		self.images = self.images()
 		self.image = self.images[self.image_index]
 		self.rect = self.image.get_rect()
-
-		self.x = 20
-		self.y = 430		
 
 		self.is_jump = False
 		self.jump_count = 10
@@ -37,8 +38,8 @@ class Bolan:
 		rects = list()
 		x = 1854
 		for i in range(2):
-			rects.append([x, 2, 88, 94])
-			x += 88
+			rects.append([x, 2, self.width, self.height])
+			x += self.width
 		return self.bolan_game.spritesheet.images_at(rects, (0, 0, 0))
 
 
@@ -55,9 +56,9 @@ class Bolan:
 		Updates the image of Bolan.
 		"""
 		# Slow down animation. 
-		self.current_frame += 1
-		if self.current_frame == 60: 
-			self.current_frame = 0
+		self.image_frame += 1
+		if self.image_frame == 60: 
+			self.image_frame = 0
 			self.image_index += 1
 
 		# Animate Bolan running.
@@ -72,8 +73,7 @@ class Bolan:
 		"""	
 		if self.is_jump:
 			# Keep Bolan's legs steady when he jumps.
-			self.image = self.bolan_game.spritesheet.image_at(
-				(1678, 2, 88, 94), colorkey=(0, 0, 0))
+			self.image = self.bolan_game.settings.bolan_image_standing
 
 			# Only update Bolan's y every 15 frames.
 			self.jump_frame += 1

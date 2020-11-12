@@ -18,7 +18,7 @@ class BolanGame:
 .		"""
 		pygame.init()
 		self.settings = Settings()
-		self.spritesheet = SpriteSheet(self.settings.spritesheet_filename)
+		self.spritesheet = self.settings.spritesheet
 
 		self.screen = pygame.display.set_mode((
 			self.settings.screen_width,
