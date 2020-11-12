@@ -63,6 +63,10 @@ class Bolan:
 			self.image_index = 0
 		self.image = self.images[self.image_index]
 
+		if self.is_jump:
+			self.image = self.bolan_game.spritesheet.image_at(
+				(1678, 2, 88, 94), colorkey=(0, 0, 0))
+
 
 	def _update_position(self):
 		"""
