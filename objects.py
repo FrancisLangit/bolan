@@ -27,7 +27,7 @@ class Bolan:
 
 		self.is_jump = False
 		self.jump_count = 10
-		self.jump_counter = 0
+		self.jump_frame = 0
 
 
 	def images(self):
@@ -54,18 +54,16 @@ class Bolan:
 		"""
 		Updates the image of Bolan.
 		"""
+		# Slow down animation. 
 		self.current_frame += 1
 		if self.current_frame == 60: 
 			self.current_frame = 0
 			self.image_index += 1
 
+		# Animate Bolan running.
 		if self.image_index >= len(self.images):
 			self.image_index = 0
 		self.image = self.images[self.image_index]
-
-		if self.is_jump:
-			self.image = self.bolan_game.spritesheet.image_at(
-				(1678, 2, 88, 94), colorkey=(0, 0, 0))
 
 
 	def _update_position(self):
@@ -73,14 +71,26 @@ class Bolan:
 		Updates the position of Bolan on the screen.
 		"""	
 		if self.is_jump:
-			self.jump_counter += 1
-			if self.jump_counter % 15 == 0:
-				if self.jump_count >= -10:
-					self.y -= (self.jump_count * abs(self.jump_count)) * 0.45
-					self.jump_count -= 1
-				else:
-					self.jump_count = 10
-					self.is_jump = False
+			# Keep Bolan's legs steady when he jumps.
+			self.image = self.bolan_game.spritesheet.image_at(
+				(1678, 2, 88, 94), colorkey=(0, 0, 0))
+
+			# Only update Bolan's y every 15 frames.
+			self.jump_frame += 1
+			if self.jump_frame % 15 == 0: 
+				self._jump()
+
+
+	def _jump(self):
+		"""
+		Makes Bolan jump.
+		"""
+		if self.jump_count >= -10:
+			self.y -= (self.jump_count * abs(self.jump_count)) * 0.45
+			self.jump_count -= 1
+		else:
+			self.jump_count = 10
+			self.is_jump = False
 
 
 	def blitme(self):
