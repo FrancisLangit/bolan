@@ -34,4 +34,6 @@ class Settings:
 		self.floor_rect = [2, 104, 2400, 26]
 		self.floor_y = 500
 		self.floor_speed = 1
+		self.floor_image = self.spritesheet.image_at(
+			self.floor_rect, (0, 0, 0))
 
