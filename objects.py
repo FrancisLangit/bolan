@@ -75,9 +75,9 @@ class Bolan:
 			# Keep Bolan's legs steady when he jumps.
 			self.image = self.bolan_game.settings.bolan_image_standing
 
-			# Only update Bolan's y every 15 frames.
+			# Only update Bolan's y every 12 frames.
 			self.jump_frame += 1
-			if self.jump_frame % 15 == 0: 
+			if self.jump_frame % 12 == 0: 
 				self._jump()
 
 
