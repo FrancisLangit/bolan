@@ -14,8 +14,8 @@ class BolanGame:
 
 	def __init__(self):
 		"""
-		Initialize the game.
-		"""
+		Initialize the game
+.		"""
 		pygame.init()
 		self.settings = Settings()
 		self.spritesheet = SpriteSheet(self.settings.spritesheet_filename)
@@ -50,7 +50,9 @@ class BolanGame:
 
 			elif event.type == pygame.KEYDOWN:
 				if event.key in (pygame.K_q, pygame.K_ESCAPE):
-					sys.exit()
+					sys.exit()	
+				if event.key == pygame.K_SPACE:
+					self.bolan.is_jump = True
 
 
 	def _update_screen(self):

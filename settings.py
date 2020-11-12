@@ -1,9 +1,13 @@
 class Settings:
-	"""Hold all settings of game."""
+	"""
+	Hold all settings of game.
+	"""
 
 
 	def __init__(self):
-		"""Initialize Settings class."""
+		"""
+		Initialize Settings class.
+		"""
 
 
 		# General settings
