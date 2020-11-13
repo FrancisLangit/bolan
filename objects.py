@@ -17,80 +17,89 @@ class Bolan:
 
 		self.x = self.bolan_game.settings.bolan_x 
 		self.y = self.bolan_game.settings.bolan_y 
-		self.width = self.bolan_game.settings.bolan_width 
-		self.height = self.bolan_game.settings.bolan_height	
-		
-		self.image_frame = 0
-		self.image_index = 0
-		self.images = self.images()
-		self.image = self.images[self.image_index]
-		self.rect = self.image.get_rect()
+		self.standing_width = self.bolan_game.settings.bolan_standing_width 
+		self.standing_height = self.bolan_game.settings.bolan_standing_height
+		self.ducking_width = 118
+		self.ducking_height = 60	
 
 		self.is_jump = False
 		self.jump_count = 10
 		self.jump_frame = 0
 
+		self.is_duck = False
 
-	def images(self):
-		"""
-		Returns sprites of Bolan from spritesheet.
-		"""
+		self.image_frame = 0
+		self.image_index = 0
+		self.images = self._images(
+			1854, 2, self.standing_width, self.standing_height)
+		self.image = self.images[self.image_index]
+
+		self.rect = self.image.get_rect()
+
+
+	def _images(self, x, y, width, height):
 		rects = list()
-		x = 1854
 		for i in range(2):
-			rects.append([x, 2, self.width, self.height])
-			x += self.width
+			rects.append([x, y, width, height])
+			x += width
 		return self.bolan_game.spritesheet.images_at(rects, (0, 0, 0))
 
 
 	def update(self):
 		"""
-		Updates the object.
+		Updates Bolan.
 		"""
-		self._update_image()
-		self._update_position()
+		self._increment_animation()
+		self._animate(self.image_frame, self.image_index)
+
+		if self.is_jump:
+			self._jump()
+		elif self.is_duck:
+			self.images = self._images(
+				2206, 36, self.ducking_width, self.ducking_height,
+			)
+			self.y = 470
+		else:
+			self.images = self._images(
+				1854, 2, self.standing_width, self.standing_height)
+			self.y = 430
 
 
-	def _update_image(self):
+	def _increment_animation(self):
 		"""
-		Updates the image of Bolan.
+		Defines the rate at which Bolan's images change.
 		"""
-		# Slow down animation. 
 		self.image_frame += 1
 		if self.image_frame == 60: 
 			self.image_frame = 0
 			self.image_index += 1
 
-		# Animate Bolan running.
+
+	def _animate(self, image_frame, image_index):
+		"""
+		Makes Bolan run.
+		"""
 		if self.image_index >= len(self.images):
 			self.image_index = 0
 		self.image = self.images[self.image_index]
-
-
-	def _update_position(self):
-		"""
-		Updates the position of Bolan on the screen.
-		"""	
-		if self.is_jump:
-			# Keep Bolan's legs steady when he jumps.
-			self.image = self.bolan_game.settings.bolan_image_standing
-
-			# Only update Bolan's y every 12 frames.
-			self.jump_frame += 1
-			if self.jump_frame % 12 == 0: 
-				self._jump()
 
 
 	def _jump(self):
 		"""
 		Makes Bolan jump.
 		"""
-		if self.jump_count >= -10:
-			self.y -= (self.jump_count * abs(self.jump_count)) * 0.45
-			self.jump_count -= 1
-		else:
-			self.jump_count = 10
-			self.is_jump = False
+		# Update Bolan's image.
+		self.image = self.bolan_game.settings.bolan_image_standing
+
+		# Only update Bolan's y every 12 frames.
+		self.jump_frame += 1
+		if self.jump_frame % 12 == 0: 
+			if self.jump_count >= -10:
+				self.y -= (self.jump_count * abs(self.jump_count)) * 0.5
+				self.jump_count -= 1
+			else:
+				self.jump_count = 10
+				self.is_jump = False
 
 
 	def blitme(self):

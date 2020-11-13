@@ -53,6 +53,13 @@ class BolanGame:
 					sys.exit()	
 				if event.key == pygame.K_SPACE:
 					self.bolan.is_jump = True
+				if event.key == pygame.K_DOWN:
+					self.bolan.is_duck = True
+
+			elif event.type == pygame.KEYUP:
+				if event.key == pygame.K_DOWN:
+					self.bolan.is_duck = False
+
 
 
 	def _update_screen(self):
