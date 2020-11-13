@@ -1,7 +1,5 @@
 import pygame
 
-import itertools
-
 
 class Bolan:
 	"""
@@ -14,26 +12,47 @@ class Bolan:
 		Initalize Bolan class attributes.
 		"""
 		self.bolan_game = bolan_game
+		self.settings = bolan_game.settings
 
-		self.x = self.bolan_game.settings.bolan_x 
-		self.y = self.bolan_game.settings.bolan_y 
-		self.standing_width = self.bolan_game.settings.bolan_standing_width 
-		self.standing_height = self.bolan_game.settings.bolan_standing_height
-		self.ducking_width = 118
-		self.ducking_height = 60	
+		# In-game coordinates and dimensions
+		self.default_x = self.settings.bolan_game_x
+		self.default_y = self.settings.bolan_game_y
+		self.x = self.default_x
+		self.y = self.default_y
 
+		self.standing_width = self.settings.bolan_standing_width 
+		self.standing_height = self.settings.bolan_standing_height
+		self.standing_y = self.settings.bolan_game_y
+
+		self.ducking_width = self.settings.bolan_ducking_width
+		self.ducking_height = self.settings.bolan_ducking_height
+		self.ducking_y = self.settings.bolan_ducking_y
+
+		# Spritesheet coordinates and dimensions
+		self.standing_spritesheet_x = self.settings.bolan_standing_spritesheet_x
+		self.standing_spritesheet_y = self.settings.bolan_standing_spritesheet_y
+		self.ducking_spritesheet_x = self.settings.bolan_ducking_spritesheet_x
+		self.ducking_spritesheet_y = self.settings.bolan_ducking_spritesheet_y
+
+		# Jump attributes
 		self.is_jump = False
 		self.jump_count = 10
 		self.jump_frame = 0
 
+		# Duck attributes 
 		self.is_duck = False
 
+		# Image attributes
+		self.default_images = self._images(
+			self.standing_spritesheet_x, 
+			self.standing_spritesheet_y, 
+			self.standing_width, 
+			self.standing_height,
+		)
 		self.image_frame = 0
 		self.image_index = 0
-		self.images = self._images(
-			1854, 2, self.standing_width, self.standing_height)
+		self.images = self.default_images
 		self.image = self.images[self.image_index]
-
 		self.rect = self.image.get_rect()
 
 
@@ -51,18 +70,7 @@ class Bolan:
 		"""
 		self._increment_animation()
 		self._animate(self.image_frame, self.image_index)
-
-		if self.is_jump:
-			self._jump()
-		elif self.is_duck:
-			self.images = self._images(
-				2206, 36, self.ducking_width, self.ducking_height,
-			)
-			self.y = 470
-		else:
-			self.images = self._images(
-				1854, 2, self.standing_width, self.standing_height)
-			self.y = 430
+		self._player_control()
 
 
 	def _increment_animation(self):
@@ -77,11 +85,24 @@ class Bolan:
 
 	def _animate(self, image_frame, image_index):
 		"""
-		Makes Bolan run.
+		Animates Bolan's sprite.
 		"""
 		if self.image_index >= len(self.images):
 			self.image_index = 0
 		self.image = self.images[self.image_index]
+
+
+	def _player_control(self):
+		"""
+		Changes what Bolan does based on user input.
+		"""
+		if self.is_jump:
+			self._jump()
+		elif self.is_duck:
+			self._duck()
+		else:
+			self.images = self.default_images
+			self.y = self.standing_y
 
 
 	def _jump(self):
@@ -89,7 +110,7 @@ class Bolan:
 		Makes Bolan jump.
 		"""
 		# Update Bolan's image.
-		self.image = self.bolan_game.settings.bolan_image_standing
+		self.image = self.settings.bolan_image_standing
 
 		# Only update Bolan's y every 12 frames.
 		self.jump_frame += 1
@@ -100,6 +121,16 @@ class Bolan:
 			else:
 				self.jump_count = 10
 				self.is_jump = False
+
+
+	def _duck(self):
+		"""
+		Makes Bolan duck.
+		"""
+		self.images = self._images(
+			self.ducking_spritesheet_x, self.ducking_spritesheet_y, 
+			self.ducking_width, self.ducking_height)
+		self.y = self.ducking_y
 
 
 	def blitme(self):
@@ -120,15 +151,16 @@ class Floor:
 		Initalize Floor class attributes.
 		"""
 		self.bolan_game = bolan_game
+		self.settings = bolan_game.settings
 		self.image = self.bolan_game.spritesheet.image_at(
-			self.bolan_game.settings.floor_rect, (0, 0, 0))
+			self.settings.floor_rect, (0, 0, 0))
 		self.rect = self.image.get_rect()
 
 		self.x_1 = 0
 		self.x_2 = self.rect.width
-		self.y = self.bolan_game.settings.floor_y
+		self.y = self.settings.floor_y
 
-		self.speed = self.bolan_game.settings.floor_speed
+		self.speed = self.settings.floor_speed
 
 
 	def update(self):

@@ -7,7 +7,7 @@ from spritesheet import SpriteSheet
 
 
 class BolanGame:
-	"""
+	""" 
 	Overall class to manage game assets and behavior.
 	"""
 
@@ -51,7 +51,7 @@ class BolanGame:
 			elif event.type == pygame.KEYDOWN:
 				if event.key in (pygame.K_q, pygame.K_ESCAPE):
 					sys.exit()	
-				if event.key == pygame.K_SPACE:
+				if event.key == pygame.K_SPACE and not self.bolan.is_duck:
 					self.bolan.is_jump = True
 				if event.key == pygame.K_DOWN:
 					self.bolan.is_duck = True
