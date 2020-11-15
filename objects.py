@@ -20,47 +20,27 @@ class Bolan:
 		self.settings = bolan_game.settings
 
 		# In-game coordinates and dimensions
-		self.default_x = self.settings.bolan_game_x
-		self.default_y = self.settings.bolan_game_y
+		self.default_x = self.settings.bolan_x_position
+		self.default_y = self.settings.bolan_y_position_run
 		self.x = self.default_x
 		self.y = self.default_y
 
-		self.standing_width = self.settings.bolan_standing_width 
-		self.standing_height = self.settings.bolan_standing_height
-		self.standing_y = self.settings.bolan_game_y
-
-		self.ducking_width = self.settings.bolan_ducking_width
-		self.ducking_height = self.settings.bolan_ducking_height
-		self.ducking_y = self.settings.bolan_ducking_y
-
-		# Spritesheet coordinates and dimensions
-		self.standing_spritesheet_x = self.settings.bolan_standing_spritesheet_x
-		self.standing_spritesheet_y = self.settings.bolan_standing_spritesheet_y
-		self.ducking_spritesheet_x = self.settings.bolan_ducking_spritesheet_x
-		self.ducking_spritesheet_y = self.settings.bolan_ducking_spritesheet_y
+		# Image attributes
+		self.image_frame = 0
+		self.image_index = 0
+		self.run_images = self.settings.bolan_run_images
+		self.duck_images = self.settings.bolan_duck_images
+		self.images = self.run_images
+		self.image = self.images[self.image_index]
 
 		# Jump attributes
 		self.is_jump = False
 		self.jump_count = 10
 		self.jump_frame = 0
 
-		# Duck attributes 
+		# Duck attributes
+		self.duck_y = self.settings.bolan_y_position_duck
 		self.is_duck = False
-
-		# Image attributes
-		self.image_frame = 0
-		self.image_index = 0
-		self.default_images = helpers.get_sprites(
-			self.bolan_game,
-			2, 
-			self.standing_spritesheet_x, 
-			self.standing_spritesheet_y, 
-			self.standing_width, 
-			self.standing_height,
-		)
-		self.images = self.default_images
-		self.image = self.images[self.image_index]
-		self.rect = self.image.get_rect()
 
 
 	def update(self):
@@ -100,8 +80,8 @@ class Bolan:
 		elif self.is_duck:
 			self._duck()
 		else:
-			self.images = self.default_images
-			self.y = self.standing_y
+			self.images = self.run_images
+			self.y = self.default_y
 
 
 	def _jump(self):
@@ -109,7 +89,7 @@ class Bolan:
 		Makes Bolan jump.
 		"""
 		# Update Bolan's image.
-		self.image = self.settings.bolan_image_standing
+		self.image = self.settings.bolan_standing_image
 
 		# Only update Bolan's y every 12 frames.
 		self.jump_frame += 1
@@ -126,15 +106,8 @@ class Bolan:
 		"""
 		Makes Bolan duck.
 		"""
-		self.images = helpers.get_sprites(
-			self.bolan_game,
-			2, 
-			self.ducking_spritesheet_x, 
-			self.ducking_spritesheet_y, 
-			self.ducking_width, 
-			self.ducking_height
-		)
-		self.y = self.ducking_y
+		self.images = self.duck_images
+		self.y = self.duck_y
 
 
 	def blitme(self):
@@ -200,11 +173,12 @@ class Cactus:
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
 
-		self.x = self.settings.cactus_game_x
-		self.y = self.settings.cactus_game_y
+		self.x = self.settings.cactus_x_position
+		self.y = self.settings.cactus_y_position
 
-		self.images = self.settings.cactus_images
-		self.image = random.choice(self.images)
+		self.small_cactus_images = self.settings.small_cactus_images
+		self.big_cactus_images = self.settings.big_cactus_images
+		self.image = random.choice(self.small_cactus_images)
 
 
 	def update(self):
@@ -212,7 +186,7 @@ class Cactus:
 		Updates the Cactus object.
 		"""
 		if self.x <= -1000:
-			self.x = self.settings.cactus_game_x
+			self.x = self.settings.cactus_x_position
 			self.image = random.choice(self.images)
 
 		self.x -= 1

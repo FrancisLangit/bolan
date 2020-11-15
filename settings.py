@@ -22,22 +22,17 @@ class Settings:
 
 
 		# Bolan settings
-		self.bolan_game_x = 20
-		self.bolan_game_y = 430
+		self.bolan_x_position = 20
+		self.bolan_y_position_run = 430
+		self.bolan_y_position_duck = 465
 
-		self.bolan_standing_width = 88
-		self.bolan_standing_height = 94
-		self.bolan_standing_spritesheet_x = 1854 
-		self.bolan_standing_spritesheet_y = 2 
-
-		self.bolan_ducking_width = 118
-		self.bolan_ducking_height = 60
-		self.bolan_ducking_y = 465
-		self.bolan_ducking_spritesheet_x = 2206
-		self.bolan_ducking_spritesheet_y = 36
-		self.bolan_image_standing = self.bolan_game.spritesheet.image_at(
-			(1678, 2, self.bolan_standing_width, self.bolan_standing_height), 
-			colorkey=(0, 0, 0))
+		self.bolan_run_images = helpers.get_sprites(
+			self.bolan_game, 2, 1854, 2, 88, 94)
+		self.bolan_duck_images = helpers.get_sprites(
+			self.bolan_game, 2, 2206, 36, 118, 60)
+		self.bolan_standing_image = self.bolan_game.spritesheet.image_at(
+			(1678, 2, 88, 94), colorkey=(0, 0, 0))
+		
 		self.bolan_update_rate = 60 # Update Bolan's image every 60 ticks.
 
 
@@ -50,13 +45,10 @@ class Settings:
 
 
 		# Cactus settings
-		self.cactus_game_x = 1400
-		self.cactus_game_y = 450
-		self.cactus_images = helpers.get_sprites(
-			self.bolan_game,
-			6,
-			443,
-			2, 
-			35, 
-			70,
-		)
+		self.cactus_x_position = 1400
+		self.cactus_y_position = 450
+
+		self.small_cactus_images = helpers.get_sprites(
+			self.bolan_game, 6, 443, 2, 35, 70,)
+		self.big_cactus_images = helpers.get_sprites(
+			self.bolan_game, 4, 652, 2, 50, 100)

@@ -63,7 +63,6 @@ class BolanGame:
 					self.bolan.is_duck = False
 
 
-
 	def _update_screen(self):
 		"""
 		Update display of game.
