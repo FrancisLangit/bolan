@@ -113,7 +113,7 @@ class Bolan:
 
 		# Only update Bolan's y every 12 frames.
 		self.jump_frame += 1
-		if self.jump_frame % 12 == 0: 
+		if self.jump_frame % 15 == 0: 
 			if self.jump_count >= -10:
 				self.y -= (self.jump_count * abs(self.jump_count)) * 0.5
 				self.jump_count -= 1
@@ -213,6 +213,7 @@ class Cactus:
 		"""
 		if self.x <= -1000:
 			self.x = self.settings.cactus_game_x
+			self.image = random.choice(self.images)
 
 		self.x -= 1
 

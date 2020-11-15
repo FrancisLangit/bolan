@@ -32,7 +32,7 @@ class Settings:
 
 		self.bolan_ducking_width = 118
 		self.bolan_ducking_height = 60
-		self.bolan_ducking_y = 470
+		self.bolan_ducking_y = 465
 		self.bolan_ducking_spritesheet_x = 2206
 		self.bolan_ducking_spritesheet_y = 36
 		self.bolan_image_standing = self.bolan_game.spritesheet.image_at(
@@ -50,8 +50,8 @@ class Settings:
 
 
 		# Cactus settings
-		self.cactus_game_x = 1000
-		self.cactus_game_y = 445
+		self.cactus_game_x = 1400
+		self.cactus_game_y = 450
 		self.cactus_images = helpers.get_sprites(
 			self.bolan_game,
 			6,
