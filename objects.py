@@ -1,4 +1,9 @@
+import random
+
 import pygame
+
+import helpers
+
 
 
 class Bolan:
@@ -43,25 +48,19 @@ class Bolan:
 		self.is_duck = False
 
 		# Image attributes
-		self.default_images = self._images(
+		self.image_frame = 0
+		self.image_index = 0
+		self.default_images = helpers.get_sprites(
+			self.bolan_game,
+			2, 
 			self.standing_spritesheet_x, 
 			self.standing_spritesheet_y, 
 			self.standing_width, 
 			self.standing_height,
 		)
-		self.image_frame = 0
-		self.image_index = 0
 		self.images = self.default_images
 		self.image = self.images[self.image_index]
 		self.rect = self.image.get_rect()
-
-
-	def _images(self, x, y, width, height):
-		rects = list()
-		for i in range(2):
-			rects.append([x, y, width, height])
-			x += width
-		return self.bolan_game.spritesheet.images_at(rects, (0, 0, 0))
 
 
 	def update(self):
@@ -69,7 +68,7 @@ class Bolan:
 		Updates Bolan.
 		"""
 		self._increment_animation()
-		self._animate(self.image_frame, self.image_index)
+		self._update_sprite(self.image_frame, self.image_index)
 		self._player_control()
 
 
@@ -78,14 +77,14 @@ class Bolan:
 		Defines the rate at which Bolan's images change.
 		"""
 		self.image_frame += 1
-		if self.image_frame == 60: 
+		if self.image_frame == self.settings.bolan_update_rate: 
 			self.image_frame = 0
 			self.image_index += 1
 
 
-	def _animate(self, image_frame, image_index):
+	def _update_sprite(self, image_frame, image_index):
 		"""
-		Animates Bolan's sprite.
+		Changes Bolan's sprite.
 		"""
 		if self.image_index >= len(self.images):
 			self.image_index = 0
@@ -127,9 +126,14 @@ class Bolan:
 		"""
 		Makes Bolan duck.
 		"""
-		self.images = self._images(
-			self.ducking_spritesheet_x, self.ducking_spritesheet_y, 
-			self.ducking_width, self.ducking_height)
+		self.images = helpers.get_sprites(
+			self.bolan_game,
+			2, 
+			self.ducking_spritesheet_x, 
+			self.ducking_spritesheet_y, 
+			self.ducking_width, 
+			self.ducking_height
+		)
 		self.y = self.ducking_y
 
 
@@ -152,8 +156,8 @@ class Floor:
 		"""
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
-		self.image = self.bolan_game.spritesheet.image_at(
-			self.settings.floor_rect, (0, 0, 0))
+
+		self.image = self.settings.floor_image
 		self.rect = self.image.get_rect()
 
 		self.x_1 = 0
@@ -181,3 +185,40 @@ class Floor:
 		"""
 		self.bolan_game.screen.blit(self.image, (self.x_1, self.y))
 		self.bolan_game.screen.blit(self.image, (self.x_2, self.y))
+
+
+class Cactus:
+	"""
+	Represents the Cactus obstacles that Bolan must jump over.
+	"""
+
+
+	def __init__(self, bolan_game):
+		"""
+		Initialize Cactus class attributes.
+		"""
+		self.bolan_game = bolan_game
+		self.settings = bolan_game.settings
+
+		self.x = self.settings.cactus_game_x
+		self.y = self.settings.cactus_game_y
+
+		self.images = self.settings.cactus_images
+		self.image = random.choice(self.images)
+
+
+	def update(self):
+		"""
+		Updates the Cactus object.
+		"""
+		if self.x <= -1000:
+			self.x = self.settings.cactus_game_x
+
+		self.x -= 1
+
+
+	def blitme(self):
+		"""
+		Blits the Cactus onto the screen.
+		"""
+		self.bolan_game.screen.blit(self.image, (self.x, self.y))

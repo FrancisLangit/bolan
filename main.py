@@ -17,16 +17,18 @@ class BolanGame:
 		Initialize the game
 .		"""
 		pygame.init()
-		self.settings = Settings()
-		self.spritesheet = self.settings.spritesheet
+		self.spritesheet = SpriteSheet('images/spritesheet.png')
+		self.settings = Settings(self)
 
 		self.screen = pygame.display.set_mode((
 			self.settings.screen_width,
 			self.settings.screen_height,
 		))
+		self.screen_rect = self.screen.get_rect()
 
 		self.bolan = objects.Bolan(self)
 		self.floor = objects.Floor(self)
+		self.cactus = objects.Cactus(self)
 
 		pygame.display.set_caption(self.settings.display_caption)
 
@@ -68,9 +70,11 @@ class BolanGame:
 		"""
 		self.screen.fill((255, 255, 255))
 
+		self._update_objects()
+
 		self.floor.blitme()
 		self.bolan.blitme()
-		self._update_objects()
+		self.cactus.blitme()
 
 		pygame.display.flip()
 
@@ -78,6 +82,7 @@ class BolanGame:
 	def _update_objects(self):
 		self.floor.update()
 		self.bolan.update()
+		self.cactus.update()
 
 
 if __name__ == '__main__':
