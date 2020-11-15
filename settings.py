@@ -24,12 +24,11 @@ class Settings:
 		# Bolan settings
 		self.bolan_x_position = 20
 		self.bolan_y_position_run = 430
-		self.bolan_y_position_duck = 465
 
 		self.bolan_run_images = helpers.get_sprites(
 			self.bolan_game, 2, 1854, 2, 88, 94)
 		self.bolan_duck_images = helpers.get_sprites(
-			self.bolan_game, 2, 2206, 36, 118, 60)
+			self.bolan_game, 2, 2206, 6, 118, 94)
 		self.bolan_standing_image = self.bolan_game.spritesheet.image_at(
 			(1678, 2, 88, 94), colorkey=(0, 0, 0))
 		
@@ -48,7 +47,7 @@ class Settings:
 		self.cactus_x_position = 1400
 		self.cactus_y_position = 450
 
-		self.small_cactus_images = helpers.get_sprites(
+		self.cactus_small_images = helpers.get_sprites(
 			self.bolan_game, 6, 443, 2, 35, 70,)
-		self.big_cactus_images = helpers.get_sprites(
+		self.cactus_big_images = helpers.get_sprites(
 			self.bolan_game, 4, 652, 2, 50, 100)

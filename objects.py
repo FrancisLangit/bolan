@@ -39,7 +39,6 @@ class Bolan:
 		self.jump_frame = 0
 
 		# Duck attributes
-		self.duck_y = self.settings.bolan_y_position_duck
 		self.is_duck = False
 
 
@@ -107,7 +106,6 @@ class Bolan:
 		Makes Bolan duck.
 		"""
 		self.images = self.duck_images
-		self.y = self.duck_y
 
 
 	def blitme(self):
@@ -176,9 +174,10 @@ class Cactus:
 		self.x = self.settings.cactus_x_position
 		self.y = self.settings.cactus_y_position
 
-		self.small_cactus_images = self.settings.small_cactus_images
-		self.big_cactus_images = self.settings.big_cactus_images
-		self.image = random.choice(self.small_cactus_images)
+		self.cactus_small_images = self.settings.cactus_small_images
+		self.cactus_images = self.settings.cactus_big_images
+		self.images = self.cactus_small_images
+		self.image = random.choice(self.images)
 
 
 	def update(self):

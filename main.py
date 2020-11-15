@@ -67,6 +67,7 @@ class BolanGame:
 		"""
 		Update display of game.
 		"""
+
 		self.screen.fill((255, 255, 255))
 
 		self._update_objects()
