@@ -23,7 +23,7 @@ class Settings:
 
 		# Bolan settings
 		self.bolan_x_position = 20
-		self.bolan_y_position_run = 430
+		self.bolan_y_position_run = 435
 
 		self.bolan_run_images = helpers.get_sprites(
 			self.bolan_game, 2, 1854, 2, 88, 94)
