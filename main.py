@@ -43,7 +43,7 @@ class BolanGame:
 
 
 	def _check_events(self):
-		"""
+		"""	
 		Track events and user input.
 		"""
 		for event in pygame.event.get():
@@ -53,7 +53,8 @@ class BolanGame:
 			elif event.type == pygame.KEYDOWN:
 				if event.key in (pygame.K_q, pygame.K_ESCAPE):
 					sys.exit()	
-				if event.key == pygame.K_SPACE and not self.bolan.is_duck:
+				if event.key == pygame.K_SPACE and (
+					self.bolan.y >= self.bolan.default_y):
 					self.bolan.is_jump = True
 				if event.key == pygame.K_DOWN:
 					self.bolan.is_duck = True

@@ -21,7 +21,7 @@ class Bolan:
 
 		# In-game coordinates and dimensions
 		self.default_x = self.settings.bolan_x_position
-		self.default_y = self.settings.bolan_y_position_run
+		self.default_y = self.settings.bolan_y_position
 		self.x = self.default_x
 		self.y = self.default_y
 
@@ -31,16 +31,13 @@ class Bolan:
 		self.run_images = self.settings.bolan_run_images
 		self.duck_images = self.settings.bolan_duck_images
 		self.images = self.run_images
-		self.image = self.images[self.image_index]
+		self.image = self.run_images[self.image_index]
 
-		# Jump attributes
+		# Movement attributes
+		self.gravity = 1
 		self.is_jump = False
-		self.jump_count = 10
-		self.jump_frame = 0
-
-		# Duck attributes
 		self.is_duck = False
-
+		self.jump_speed = 1.25 
 
 	def update(self):
 		"""
@@ -65,40 +62,43 @@ class Bolan:
 		"""
 		Changes Bolan's sprite.
 		"""
-		if self.image_index >= len(self.images):
-			self.image_index = 0
-		self.image = self.images[self.image_index]
+		if self.y < self.default_y:
+			self.image = self.settings.bolan_standing_image
+		else:
+			if self.image_index >= len(self.images):
+				self.image_index = 0
+			self.image = self.images[self.image_index]
 
 
 	def _player_control(self):
 		"""
 		Changes what Bolan does based on user input.
 		"""
-		if self.is_jump:
+		if self.is_jump and not self.is_duck:
 			self._jump()
-		elif self.is_duck:
+		elif self.is_duck and self.y >= self.default_y:
 			self._duck()
 		else:
 			self.images = self.run_images
-			self.y = self.default_y
+			self._implement_gravity()
+
+
+	def _implement_gravity(self):
+		"""
+		Brings Bolan's y-position he's above default y.
+		"""
+		if self.y < self.default_y:
+			self.y += self.gravity
 
 
 	def _jump(self):
 		"""
 		Makes Bolan jump.
 		"""
-		# Update Bolan's image.
-		self.image = self.settings.bolan_standing_image
-
-		# Only update Bolan's y every 12 frames.
-		self.jump_frame += 1
-		if self.jump_frame % 15 == 0: 
-			if self.jump_count >= -10:
-				self.y -= (self.jump_count * abs(self.jump_count)) * 0.5
-				self.jump_count -= 1
-			else:
-				self.jump_count = 10
-				self.is_jump = False
+		if self.y > 250:
+			self.y -= self.jump_speed
+		else:
+			self.is_jump = False
 
 
 	def _duck(self):
