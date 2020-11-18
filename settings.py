@@ -45,9 +45,10 @@ class Settings:
 
 		# Cactus settings
 		self.cactus_x_position = 1400
-		self.cactus_y_position = 450
+		self.cactus_y_position = 435
 
 		self.cactus_small_images = helpers.get_sprites(
-			self.bolan_game, 6, 443, 2, 35, 70,)
+			self.bolan_game, 6, 443, 2, 35, 100,)
 		self.cactus_big_images = helpers.get_sprites(
 			self.bolan_game, 4, 652, 2, 50, 100)
+		self.cactus_images = self.cactus_small_images + self.cactus_big_images

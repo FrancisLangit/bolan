@@ -171,13 +171,11 @@ class Cactus:
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
 
+		self.images = self.settings.cactus_images
+		self.image = random.choice(self.images)
+
 		self.x = self.settings.cactus_x_position
 		self.y = self.settings.cactus_y_position
-
-		self.cactus_small_images = self.settings.cactus_small_images
-		self.cactus_images = self.settings.cactus_big_images
-		self.images = self.cactus_small_images
-		self.image = random.choice(self.images)
 
 
 	def update(self):
@@ -187,7 +185,6 @@ class Cactus:
 		if self.x <= -1000:
 			self.x = self.settings.cactus_x_position
 			self.image = random.choice(self.images)
-
 		self.x -= 1
 
 
@@ -196,3 +193,13 @@ class Cactus:
 		Blits the Cactus onto the screen.
 		"""
 		self.bolan_game.screen.blit(self.image, (self.x, self.y))
+		self.bolan_game.screen.blit(self.image, (self.x + 700, self.y))
+
+
+"""
+Cacti Groups
+- Two small
+- Three small
+- Three big one small
+- Two big
+"""

@@ -45,7 +45,7 @@ class BolanGame:
 	def _check_events(self):
 		"""	
 		Track events and user input.
-		"""
+		"""	
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				sys.exit()
