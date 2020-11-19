@@ -28,7 +28,7 @@ class BolanGame:
 
 		self.bolan = objects.Bolan(self)
 		self.floor = objects.Floor(self)
-		self.cactus = objects.Cactus(self)
+		self.cacti = objects.Cacti(self)
 
 		pygame.display.set_caption(self.settings.display_caption)
 
@@ -75,7 +75,7 @@ class BolanGame:
 
 		self.floor.blitme()
 		self.bolan.blitme()
-		self.cactus.blitme()
+		self.cacti.blitme()
 
 		pygame.display.flip()
 
@@ -83,7 +83,7 @@ class BolanGame:
 	def _update_objects(self):
 		self.floor.update()
 		self.bolan.update()
-		self.cactus.update()
+		self.cacti.update()
 
 
 if __name__ == '__main__':

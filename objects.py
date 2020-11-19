@@ -160,7 +160,7 @@ class Floor:
 
 class Cactus:
 	"""
-	Represents the Cactus obstacles that Bolan must jump over.
+	Represents a single Cactus.
 	"""
 
 
@@ -182,15 +182,41 @@ class Cactus:
 		"""
 		Updates the Cactus object.
 		"""
-		if self.x <= -1000:
+		if self.x <= -1600:
 			self.x = self.settings.cactus_x_position
 			self.image = random.choice(self.images)
 		self.x -= 1
 
 
+class Cacti:
+	"""
+	Represents the cacti that procedurally generate at fixed intervals.
+	"""
+
+
+	def __init__(self, bolan_game):
+		"""
+		Initialize Cacti class attributes.
+		"""
+		self.bolan_game = bolan_game
+		self.settings = bolan_game.settings
+
+		self.cacti = [Cactus(bolan_game) for i in range(3)]
+
+
+	def update(self):
+		"""
+		Update each cactus in the self.cacti iterable.
+		"""
+		for cactus in self.cacti:
+			cactus.update()
+
+
 	def blitme(self):
 		"""
-		Blits the Cactus onto the screen.
+		Blit the cacti onto the screen.
 		"""
-		self.bolan_game.screen.blit(self.image, (self.x, self.y))
-		self.bolan_game.screen.blit(self.image, (self.x + 700, self.y))
+		cactus_x = self.cacti[0].x 
+		for cactus in self.cacti:
+			self.bolan_game.screen.blit(cactus.image, (cactus_x, cactus.y))
+			cactus_x += 700
