@@ -164,7 +164,7 @@ class Cactus:
 	"""
 
 
-	def __init__(self, bolan_game):
+	def __init__(self, bolan_game, x):
 		"""
 		Initialize Cactus class attributes.
 		"""
@@ -174,7 +174,7 @@ class Cactus:
 		self.images = self.settings.cactus_images
 		self.image = random.choice(self.images)
 
-		self.x = self.settings.cactus_x_position
+		self.x = x
 		self.y = self.settings.cactus_y_position
 
 
@@ -182,8 +182,8 @@ class Cactus:
 		"""
 		Updates the Cactus object.
 		"""
-		if self.x <= -1600:
-			self.x = self.settings.cactus_x_position
+		if self.x <= -204:
+			self.x = 2100
 			self.image = random.choice(self.images)
 		self.x -= 1
 
@@ -201,7 +201,11 @@ class Cacti:
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
 
-		self.cacti = [Cactus(bolan_game) for i in range(3)]
+		self.cacti = [
+			Cactus(bolan_game, 1400),
+			Cactus(bolan_game, 2100),
+			Cactus(bolan_game, 2800),
+		]
 
 
 	def update(self):
@@ -216,7 +220,5 @@ class Cacti:
 		"""
 		Blit the cacti onto the screen.
 		"""
-		cactus_x = self.cacti[0].x 
 		for cactus in self.cacti:
-			self.bolan_game.screen.blit(cactus.image, (cactus_x, cactus.y))
-			cactus_x += 700
+			self.bolan_game.screen.blit(cactus.image, (cactus.x, cactus.y))

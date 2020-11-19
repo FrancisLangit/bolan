@@ -19,6 +19,7 @@ class Settings:
 		self.screen_height = 600
 		self.background_color = (255, 255, 255)
 		self.display_caption = "Bolan.py"
+		self.spritesheet_colorkey = (0, 0, 0)
 
 
 		# Bolan settings
@@ -30,7 +31,7 @@ class Settings:
 		self.bolan_duck_images = helpers.get_sprites(
 			self.bolan_game, 2, 2206, 6, 118, 94)
 		self.bolan_standing_image = self.bolan_game.spritesheet.image_at(
-			(1678, 2, 88, 94), colorkey=(0, 0, 0))
+			(1678, 2, 88, 94), colorkey=self.spritesheet_colorkey)
 		
 		self.bolan_update_rate = 60 # Update Bolan's image every 60 ticks.
 
@@ -40,11 +41,10 @@ class Settings:
 		self.floor_y = 500
 		self.floor_speed = 1
 		self.floor_image = self.bolan_game.spritesheet.image_at(
-			self.floor_rect, (0, 0, 0))
+			self.floor_rect, self.spritesheet_colorkey)
 
 
 		# Cactus settings
-		self.cactus_x_position = 1400
 		self.cactus_y_position = 435
 
 		self.cactus_small_images = helpers.get_sprites(
@@ -56,8 +56,9 @@ class Settings:
 			(549, 2, 102, 96), # Three small cacti.
 			(802, 2, 150, 100), # Three big cacti, one small cactus.
 			(702, 2, 100, 100),],
-			colorkey=(0, 0, 0),
+			colorkey=self.spritesheet_colorkey,
 		)
+
 		self.cactus_images = (
 			self.cactus_small_images + 
 			self.cactus_big_images +
