@@ -1,6 +1,4 @@
-import random
-
-import pygame
+import pygame, random
 
 import helpers
 
@@ -38,6 +36,7 @@ class Bolan:
 		self.is_jump = False
 		self.is_duck = False
 		self.jump_speed = 1.25 
+
 
 	def update(self):
 		"""
@@ -186,9 +185,6 @@ class Cactus:
 			self.x = self.settings.screen_width + 204
 			self.image = random.choice(self.images)
 		self.x -= 1
-		
-		if self.image == None:
-			print(self.image)
 
 
 class Cacti:
@@ -219,6 +215,6 @@ class Cacti:
 		Blit the cacti onto the screen.
 		"""
 		for cactus in self.cacti:
-			# Check if cactus.image is not a NoneType.
+			# Make sure cactus.image is not a NoneType.
 			if cactus.image:
 				self.bolan_game.screen.blit(cactus.image, (cactus.x, cactus.y))

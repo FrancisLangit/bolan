@@ -51,39 +51,61 @@ class BolanGame:
 				sys.exit()
 
 			elif event.type == pygame.KEYDOWN:
-				if event.key in (pygame.K_q, pygame.K_ESCAPE):
-					sys.exit()	
-				if event.key == pygame.K_SPACE and (
-					self.bolan.y >= self.bolan.default_y):
-					self.bolan.is_jump = True
-				if event.key == pygame.K_DOWN:
-					self.bolan.is_duck = True
+				self._check_keydown_events(event)
 
 			elif event.type == pygame.KEYUP:
-				if event.key == pygame.K_DOWN:
-					self.bolan.is_duck = False
+				self._check_keyup_events(event)
+
+
+	def _check_keydown_events(self, event):
+		"""
+		Checks keydown events.
+		"""
+		if event.key in (pygame.K_q, pygame.K_ESCAPE):
+			sys.exit()	
+		if event.key == pygame.K_SPACE and (
+			self.bolan.y >= self.bolan.default_y):
+			self.bolan.is_jump = True
+		if event.key == pygame.K_DOWN:
+			self.bolan.is_duck = True
+
+
+	def _check_keyup_events(self, event):
+		"""
+		Checks keyup events.
+		"""
+		if event.key == pygame.K_DOWN:
+			self.bolan.is_duck = False
 
 
 	def _update_screen(self):
 		"""
 		Update display of game.
 		"""
-
 		self.screen.fill((255, 255, 255))
 
 		self._update_objects()
-
-		self.floor.blitme()
-		self.bolan.blitme()
-		self.cacti.blitme()
+		self._blit_objects()
 
 		pygame.display.flip()
 
 
 	def _update_objects(self):
+		"""
+		Updates the game objects.
+		"""
 		self.floor.update()
 		self.bolan.update()
 		self.cacti.update()
+
+
+	def _blit_objects(self):
+		"""
+		Blits the game objects onto the screen.
+		"""
+		self.floor.blitme()
+		self.bolan.blitme()
+		self.cacti.blitme()
 
 
 if __name__ == '__main__':
