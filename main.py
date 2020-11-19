@@ -26,8 +26,9 @@ class BolanGame:
 		))
 		self.screen_rect = self.screen.get_rect()
 
-		self.bolan = objects.Bolan(self)
 		self.floor = objects.Floor(self)
+		self.clouds = objects.Clouds(self)
+		self.bolan = objects.Bolan(self)
 		self.cacti = objects.Cacti(self)
 
 		pygame.display.set_caption(self.settings.display_caption)
@@ -95,6 +96,7 @@ class BolanGame:
 		Updates the game objects.
 		"""
 		self.floor.update()
+		self.clouds.update()
 		self.bolan.update()
 		self.cacti.update()
 
@@ -104,6 +106,7 @@ class BolanGame:
 		Blits the game objects onto the screen.
 		"""
 		self.floor.blitme()
+		self.clouds.blitme()
 		self.bolan.blitme()
 		self.cacti.blitme()
 

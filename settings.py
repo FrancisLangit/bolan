@@ -4,7 +4,7 @@ import helpers
 
 class Settings:
 	"""
-	Hold all settings of game.
+	Holds all settings of game.
 	"""
 
 
@@ -55,7 +55,7 @@ class Settings:
 			(481, 2, 68, 96), # Two small cacti.
 			(549, 2, 102, 96), # Three small cacti.
 			(802, 2, 150, 100), # Three big cacti, one small cactus.
-			(702, 2, 100, 100),],
+			(702, 2, 100, 100), ], # Two big cacti.
 			colorkey=self.spritesheet_colorkey,
 		)
 
@@ -65,3 +65,11 @@ class Settings:
 			self.cactus_group_images +
 			[None] # Add chance that a cactus doesn't spawn at all.
 		)
+
+
+		# Cloud settings
+		self.cloud_image = self.bolan_game.spritesheet.image_at(
+			(166, 2, 92, 27), colorkey=self.spritesheet_colorkey)
+		self.cloud_x_range = range(100, 1180)
+		self.cloud_y_range = range(75, 300)
+		self.cloud_number = 6

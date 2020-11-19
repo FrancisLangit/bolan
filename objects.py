@@ -3,6 +3,113 @@ import pygame, random
 import helpers
 
 
+class Floor:
+	"""
+	Represents the desert floor that Bolan runs on.
+	"""
+
+
+	def __init__(self, bolan_game):
+		"""
+		Initalize Floor class attributes.
+		"""
+		self.bolan_game = bolan_game
+		self.settings = bolan_game.settings
+
+		self.image = self.settings.floor_image
+		self.rect = self.image.get_rect()
+
+		self.x_1 = 0
+		self.x_2 = self.rect.width
+		self.y = self.settings.floor_y
+
+		self.speed = self.settings.floor_speed
+
+
+	def update(self):
+		"""
+		Updates the floor object.
+		"""
+		self.x_1 -= self.speed
+		self.x_2 -= self.speed
+		if self.x_1 <= -self.rect.width:
+			self.x_1 = self.rect.width
+		if self.x_2 <= -self.rect.width:
+			self.x_2 = self.rect.width
+
+
+	def blitme(self):
+		"""
+		Blits the floor onto the screen.
+		"""
+		self.bolan_game.screen.blit(self.image, (self.x_1, self.y))
+		self.bolan_game.screen.blit(self.image, (self.x_2, self.y))
+
+
+class Cloud:
+	"""
+	Represents a singular decorative cloud.
+	"""
+
+
+	def __init__(self, bolan_game, x, y):
+		self.bolan_game = bolan_game
+		self.settings = bolan_game.settings
+
+		self.image = self.settings.cloud_image
+		self.rect = self.image.get_rect()
+
+		self.x = x
+		self.y = y		
+
+
+	def update(self):
+		"""
+		Updates the x-position of the cloud.
+		"""
+		if self.x <= -self.rect.width:
+			self.x = self.settings.screen_width + self.rect.width
+		self.x -= 0.1
+
+
+class Clouds:
+	"""
+	Represents the decorative clouds in the sky.
+	"""
+
+
+	def __init__(self, bolan_game):
+		"""
+		Initialize Cloud attributes.
+		"""
+		self.bolan_game = bolan_game
+		self.settings = bolan_game.settings
+		self.clouds = [
+			Cloud(
+				bolan_game, 
+				random.choice(self.settings.cloud_x_range), # Randomize x-position between specific range.
+				random.choice(self.settings.cloud_y_range), # Randomize y-poistion between specific range.
+			) 
+			for i in range(self.settings.cloud_number) # Spawn a specific number of clouds.
+		]
+
+
+	def update(self):
+		"""
+		Updates the cloud objects in self.clouds.
+		"""
+		for cloud in self.clouds:
+			cloud.update()
+
+
+	def blitme(self):
+		"""
+		Blits the cloud onto the screen.
+		"""
+		for cloud in self.clouds:
+			self.bolan_game.screen.blit(cloud.image, (cloud.x, cloud.y))
+
+
 
 class Bolan:
 	"""
@@ -114,48 +221,6 @@ class Bolan:
 		self.bolan_game.screen.blit(self.image, (self.x, self.y))
 
 
-class Floor:
-	"""
-	Represents the desert floor that Bolan runs on.
-	"""
-
-
-	def __init__(self, bolan_game):
-		"""
-		Initalize Floor class attributes.
-		"""
-		self.bolan_game = bolan_game
-		self.settings = bolan_game.settings
-
-		self.image = self.settings.floor_image
-		self.rect = self.image.get_rect()
-
-		self.x_1 = 0
-		self.x_2 = self.rect.width
-		self.y = self.settings.floor_y
-
-		self.speed = self.settings.floor_speed
-
-
-	def update(self):
-		"""
-		Updates the floor object.
-		"""
-		self.x_1 -= self.speed
-		self.x_2 -= self.speed
-		if self.x_1 <= -self.rect.width:
-			self.x_1 = self.rect.width
-		if self.x_2 <= -self.rect.width:
-			self.x_2 = self.rect.width
-
-
-	def blitme(self):
-		"""
-		Blits the floor onto the screen.
-		"""
-		self.bolan_game.screen.blit(self.image, (self.x_1, self.y))
-		self.bolan_game.screen.blit(self.image, (self.x_2, self.y))
-
 
 class Cactus:
 	"""
@@ -218,3 +283,9 @@ class Cacti:
 			# Make sure cactus.image is not a NoneType.
 			if cactus.image:
 				self.bolan_game.screen.blit(cactus.image, (cactus.x, cactus.y))
+
+
+
+
+
+
