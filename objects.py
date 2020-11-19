@@ -95,7 +95,7 @@ class Bolan:
 		"""
 		Makes Bolan jump.
 		"""
-		if self.y > 250:
+		if self.y > 200:
 			self.y -= self.jump_speed
 		else:
 			self.is_jump = False
@@ -183,7 +183,7 @@ class Cactus:
 		Updates the Cactus object.
 		"""
 		if self.x <= -204:
-			self.x = 2100
+			self.x = self.settings.screen_width + 204
 			self.image = random.choice(self.images)
 		self.x -= 1
 
@@ -200,12 +200,7 @@ class Cacti:
 		"""
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
-
-		self.cacti = [
-			Cactus(bolan_game, 1400),
-			Cactus(bolan_game, 2100),
-			Cactus(bolan_game, 2800),
-		]
+		self.cacti = [Cactus(bolan_game, x) for x in range(1400, 2800, 700)]
 
 
 	def update(self):
