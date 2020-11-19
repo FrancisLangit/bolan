@@ -31,6 +31,7 @@ class BolanGame:
 		self.is_play = False
 
 		# Game objects.
+		self.main_menu = objects.MainMenu(self)
 		self.floor = objects.Floor(self)
 		self.clouds = objects.Clouds(self)
 		self.bolan = objects.Bolan(self)
@@ -67,7 +68,6 @@ class BolanGame:
 		"""
 		if event.key in (pygame.K_q, pygame.K_ESCAPE):
 			sys.exit()
-		
 		if self.is_play:
 			if event.key == pygame.K_SPACE and (
 				self.bolan.y >= self.bolan.default_y):
@@ -118,6 +118,9 @@ class BolanGame:
 		self.floor.blitme()
 		self.bolan.blitme()
 		self.cacti.blitme()
+
+		if not self.is_play:
+			self.main_menu.blitme()
 
 
 if __name__ == '__main__':

@@ -3,6 +3,38 @@ import pygame, random
 import helpers
 
 
+class MainMenu:
+	"""
+	Text that appears on screen when is_play is False.
+	"""
+
+
+	def __init__(self, bolan_game):
+		"""
+		Initialize MainMenu class attributes.
+		"""
+		self.bolan_game = bolan_game
+		self.settings = bolan_game.settings
+
+		self.title_image = self.settings.title_image
+		self.title_rect = self.title_image.get_rect()
+		self.title_rect.centerx = self.bolan_game.screen_rect.centerx
+		self.title_rect.centery = self.bolan_game.screen_rect.centery - 75
+
+		self.subtitle_image = self.settings.subtitle_image
+		self.subtitle_rect = self.subtitle_image.get_rect()
+		self.subtitle_rect.centerx = self.bolan_game.screen_rect.centerx
+		self.subtitle_rect.centery = self.bolan_game.screen_rect.centery
+
+
+	def blitme(self):
+		"""
+		Blits the object onto the screen.
+		"""
+		self.bolan_game.screen.blit(self.title_image, self.title_rect)
+		self.bolan_game.screen.blit(self.subtitle_image, self.subtitle_rect)
+
+
 class Cloud:
 	"""
 	Represents a singular decorative cloud.

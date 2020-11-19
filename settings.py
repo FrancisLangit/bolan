@@ -1,3 +1,5 @@
+import pygame
+
 from spritesheet import SpriteSheet
 
 import helpers
@@ -20,6 +22,15 @@ class Settings:
 		self.background_color = (255, 255, 255)
 		self.display_caption = "Bolan.py"
 		self.spritesheet_colorkey = (0, 0, 0)
+
+
+		# Main menu settings 
+		self.title_font = pygame.font.Font("fonts/PressStart2P.ttf", 48)
+		self.title_image = self.title_font.render(
+			"Bolan.py", True, (83, 83, 83))
+		self.subtitle_font = pygame.font.Font("fonts/Fipps.otf", 16)
+		self.subtitle_image = self.subtitle_font.render(
+			"Press Space to Play", True, (83, 83, 83))
 
 
 		# Bolan settings
