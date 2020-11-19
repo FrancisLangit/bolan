@@ -3,49 +3,6 @@ import pygame, random
 import helpers
 
 
-class Floor:
-	"""
-	Represents the desert floor that Bolan runs on.
-	"""
-
-
-	def __init__(self, bolan_game):
-		"""
-		Initalize Floor class attributes.
-		"""
-		self.bolan_game = bolan_game
-		self.settings = bolan_game.settings
-
-		self.image = self.settings.floor_image
-		self.rect = self.image.get_rect()
-
-		self.x_1 = 0
-		self.x_2 = self.rect.width
-		self.y = self.settings.floor_y
-
-		self.speed = self.settings.floor_speed
-
-
-	def update(self):
-		"""
-		Updates the floor object.
-		"""
-		self.x_1 -= self.speed
-		self.x_2 -= self.speed
-		if self.x_1 <= -self.rect.width:
-			self.x_1 = self.rect.width
-		if self.x_2 <= -self.rect.width:
-			self.x_2 = self.rect.width
-
-
-	def blitme(self):
-		"""
-		Blits the floor onto the screen.
-		"""
-		self.bolan_game.screen.blit(self.image, (self.x_1, self.y))
-		self.bolan_game.screen.blit(self.image, (self.x_2, self.y))
-
-
 class Cloud:
 	"""
 	Represents a singular decorative cloud.
@@ -110,6 +67,48 @@ class Clouds:
 			self.bolan_game.screen.blit(cloud.image, (cloud.x, cloud.y))
 
 
+class Floor:
+	"""
+	Represents the desert floor that Bolan runs on.
+	"""
+
+
+	def __init__(self, bolan_game):
+		"""
+		Initalize Floor class attributes.
+		"""
+		self.bolan_game = bolan_game
+		self.settings = bolan_game.settings
+
+		self.image = self.settings.floor_image
+		self.rect = self.image.get_rect()
+
+		self.x_1 = 0
+		self.x_2 = self.rect.width
+		self.y = self.settings.floor_y
+
+		self.speed = self.settings.floor_speed
+
+
+	def update(self):
+		"""
+		Updates the floor object.
+		"""
+		self.x_1 -= self.speed
+		self.x_2 -= self.speed
+		if self.x_1 <= -self.rect.width:
+			self.x_1 = self.rect.width
+		if self.x_2 <= -self.rect.width:
+			self.x_2 = self.rect.width
+
+
+	def blitme(self):
+		"""
+		Blits the floor onto the screen.
+		"""
+		self.bolan_game.screen.blit(self.image, (self.x_1, self.y))
+		self.bolan_game.screen.blit(self.image, (self.x_2, self.y))
+
 
 class Bolan:
 	"""
@@ -136,7 +135,8 @@ class Bolan:
 		self.run_images = self.settings.bolan_run_images
 		self.duck_images = self.settings.bolan_duck_images
 		self.images = self.run_images
-		self.image = self.run_images[self.image_index]
+		# self.image = self.run_images[self.image_index]
+		self.image = self.settings.bolan_standing_image
 
 		# Movement attributes
 		self.gravity = 1
@@ -201,7 +201,7 @@ class Bolan:
 		"""
 		Makes Bolan jump.
 		"""
-		if self.y > 200:
+		if self.y > 220:
 			self.y -= self.jump_speed
 		else:
 			self.is_jump = False

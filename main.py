@@ -25,13 +25,16 @@ class BolanGame:
 			self.settings.screen_height,
 		))
 		self.screen_rect = self.screen.get_rect()
+		pygame.display.set_caption(self.settings.display_caption)
 
+		# Track gamestate.
+		self.is_play = False
+
+		# Game objects.
 		self.floor = objects.Floor(self)
 		self.clouds = objects.Clouds(self)
 		self.bolan = objects.Bolan(self)
 		self.cacti = objects.Cacti(self)
-
-		pygame.display.set_caption(self.settings.display_caption)
 
 
 	def run(self):
@@ -63,12 +66,17 @@ class BolanGame:
 		Checks keydown events.
 		"""
 		if event.key in (pygame.K_q, pygame.K_ESCAPE):
-			sys.exit()	
-		if event.key == pygame.K_SPACE and (
-			self.bolan.y >= self.bolan.default_y):
-			self.bolan.is_jump = True
-		if event.key == pygame.K_DOWN:
-			self.bolan.is_duck = True
+			sys.exit()
+		
+		if self.is_play:
+			if event.key == pygame.K_SPACE and (
+				self.bolan.y >= self.bolan.default_y):
+				self.bolan.is_jump = True
+			if event.key == pygame.K_DOWN:
+				self.bolan.is_duck = True
+		else:
+			if event.key == pygame.K_SPACE:
+				self.is_play = True
 
 
 	def _check_keyup_events(self, event):
@@ -95,18 +103,19 @@ class BolanGame:
 		"""
 		Updates the game objects.
 		"""
-		self.floor.update()
 		self.clouds.update()
-		self.bolan.update()
-		self.cacti.update()
+		if self.is_play:
+			self.floor.update()
+			self.bolan.update()
+			self.cacti.update()
 
 
 	def _blit_objects(self):
 		"""
 		Blits the game objects onto the screen.
 		"""
-		self.floor.blitme()
 		self.clouds.blitme()
+		self.floor.blitme()
 		self.bolan.blitme()
 		self.cacti.blitme()
 
