@@ -8,14 +8,14 @@ from spritesheet import SpriteSheet
 
 class BolanGame:
 	""" 
-	Overall class to manage game assets and behavior.
+	Overall class to manage game ass`ets and behavior.
 	"""
 
 
 	def __init__(self):
 		"""
 		Initialize the game
-.		"""
+		"""
 		pygame.init()
 		self.spritesheet = SpriteSheet('images/spritesheet.png')
 		self.settings = Settings(self)

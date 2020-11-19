@@ -51,4 +51,15 @@ class Settings:
 			self.bolan_game, 6, 443, 2, 35, 100,)
 		self.cactus_big_images = helpers.get_sprites(
 			self.bolan_game, 4, 652, 2, 50, 100)
-		self.cactus_images = self.cactus_small_images + self.cactus_big_images
+		self.cactus_group_images = self.bolan_game.spritesheet.images_at([
+			(481, 2, 68, 96), # Two small cacti.
+			(549, 2, 102, 96), # Three small cacti.
+			(802, 2, 150, 100), # Three big cacti, one small cactus.
+			(702, 2, 100, 100),],
+			colorkey=(0, 0, 0),
+		)
+		self.cactus_images = (
+			self.cactus_small_images + 
+			self.cactus_big_images +
+			self.cactus_group_images
+		)

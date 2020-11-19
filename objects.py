@@ -194,12 +194,3 @@ class Cactus:
 		"""
 		self.bolan_game.screen.blit(self.image, (self.x, self.y))
 		self.bolan_game.screen.blit(self.image, (self.x + 700, self.y))
-
-
-"""
-Cacti Groups
-- Two small
-- Three small
-- Three big one small
-- Two big
-"""
