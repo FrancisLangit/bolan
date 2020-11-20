@@ -186,6 +186,7 @@ class Bolan:
 		# Rect attributes
 		self.rect = self.image.get_rect()
 		self.rect.topleft = (self.x, self.y)
+		# self.hitbox = pygame.Rect(self.x - 20, self.y, 88, 94)
 
 		# Movement attributes
 		self.gravity = 1
@@ -267,7 +268,9 @@ class Bolan:
 		"""
 		Blit Bolan onto the screen.
 		"""
+		pygame.draw.rect(self.bolan_game.screen, (0, 0, 0), self.rect)
 		self.bolan_game.screen.blit(self.image, self.rect)
+
 
 
 
@@ -285,12 +288,18 @@ class Cactus:
 		self.settings = bolan_game.settings
 
 		self.x = x
-		self.y = self.settings.cactus_y_position
 
 		self.images = self.settings.cactus_images
+		self._initialize_image_attributes()
+
+
+	def _initialize_image_attributes(self):
+		"""
+		Initializes self.images, self.rect, and self.rect.topleft.
+		"""
 		self.image = random.choice(self.images)
 		self.rect = self.image.get_rect()
-		self.rect.topleft = (self.x, self.y)
+		self.rect.midbottom = (self.x, 530)
 
 
 	def update(self):
@@ -298,8 +307,8 @@ class Cactus:
 		Updates the Cactus object.
 		"""
 		if self.rect.x <= -204:
+			self._initialize_image_attributes()
 			self.rect.x = self.settings.screen_width + 204
-			self.image = random.choice(self.images)
 		self.rect.x -= 1
 
 
@@ -331,6 +340,7 @@ class Cacti:
 		Blit the cacti onto the screen.
 		"""
 		for cactus in self.cacti:
+			pygame.draw.rect(self.bolan_game.screen, (0, 0, 0), cactus.rect)
 			self.bolan_game.screen.blit(cactus.image, cactus.rect)
 
 

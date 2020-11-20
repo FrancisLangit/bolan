@@ -56,23 +56,22 @@ class Settings:
 
 
 		# Cactus settings
-		self.cactus_y_position = 435
 
-		self.cactus_small_images = helpers.get_sprites(
-			self.bolan_game, 6, 443, 2, 35, 100,)
-		self.cactus_big_images = helpers.get_sprites(
-			self.bolan_game, 4, 652, 2, 50, 100)
+		self.cactus_small_images = self.bolan_game.spritesheet.load_strip(
+			(447, 28, 34, 70), 6, self.spritesheet_colorkey)
+		self.cactus_big_images = self.bolan_game.spritesheet.load_strip(
+			(652, 2, 50, 100, 4), 6, self.spritesheet_colorkey)
 		self.cactus_group_images = self.bolan_game.spritesheet.images_at([
-			(481, 2, 68, 96), # Two small cacti.
-			(549, 2, 102, 96), # Three small cacti.
+			(481, 28, 68, 70), # Two small cacti.
+			(549, 28, 102, 70), # Three small cacti.
 			(802, 2, 150, 100), # Three big cacti, one small cactus.
 			(702, 2, 100, 100), ], # Two big cacti.
-			colorkey=self.spritesheet_colorkey,
+			self.spritesheet_colorkey,
 		)
 
 		self.cactus_images = (
-			self.cactus_small_images + 
-			self.cactus_big_images +
+			self.cactus_small_images +
+			self.cactus_big_images + 
 			self.cactus_group_images 
 		)
 

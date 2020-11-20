@@ -93,9 +93,9 @@ class BolanGame:
 		"""
 		self.screen.fill((255, 255, 255))
 
+		self._check_collisions()
 		self._update_objects()
 		self._blit_objects()
-		self._check_collisions()
 
 		pygame.display.flip()
 
@@ -104,7 +104,10 @@ class BolanGame:
 		"""
 		Respond to collisions between Bolan and an obstacles.
 		"""
-		pass
+		cacti_rects = [cactus.rect for cactus in self.cacti.cacti]
+		if self.bolan.rect.collidelist(cacti_rects) != -1:
+			# self.is_play = False
+			pass
 
 
 	def _update_objects(self):
