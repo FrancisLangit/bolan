@@ -73,8 +73,7 @@ class Settings:
 		self.cactus_images = (
 			self.cactus_small_images + 
 			self.cactus_big_images +
-			self.cactus_group_images +
-			[None] # Add chance that a cactus doesn't spawn at all.
+			self.cactus_group_images 
 		)
 
 

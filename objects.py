@@ -25,14 +25,28 @@ class MainMenu:
 		self.subtitle_rect = self.subtitle_image.get_rect()
 		self.subtitle_rect.centerx = self.bolan_game.screen_rect.centerx
 		self.subtitle_rect.centery = self.bolan_game.screen_rect.centery
+		self.subtitle_frame = 0
+
+
+	def _blit_subtitle(self):
+		"""
+		Blits the subtitle with a blinking animation.
+		"""
+		self.subtitle_frame += 1
+		if self.subtitle_frame < 400:
+			self.bolan_game.screen.blit(self.subtitle_image, self.subtitle_rect)
+		elif self.subtitle_frame < 800:
+			pass
+		else:
+			self.subtitle_frame = 0
 
 
 	def blitme(self):
 		"""
 		Blits the object onto the screen.
 		"""
+		self._blit_subtitle()	
 		self.bolan_game.screen.blit(self.title_image, self.title_rect)
-		self.bolan_game.screen.blit(self.subtitle_image, self.subtitle_rect)
 
 
 class Cloud:
@@ -167,7 +181,6 @@ class Bolan:
 		self.run_images = self.settings.bolan_run_images
 		self.duck_images = self.settings.bolan_duck_images
 		self.images = self.run_images
-		# self.image = self.run_images[self.image_index]
 		self.image = self.settings.bolan_standing_image
 
 		# Movement attributes
@@ -312,9 +325,7 @@ class Cacti:
 		Blit the cacti onto the screen.
 		"""
 		for cactus in self.cacti:
-			# Make sure cactus.image is not a NoneType.
-			if cactus.image:
-				self.bolan_game.screen.blit(cactus.image, (cactus.x, cactus.y))
+			self.bolan_game.screen.blit(cactus.image, (cactus.x, cactus.y))
 
 
 

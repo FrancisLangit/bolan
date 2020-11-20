@@ -95,8 +95,21 @@ class BolanGame:
 
 		self._update_objects()
 		self._blit_objects()
+		self._check_collisions()
 
 		pygame.display.flip()
+
+
+	def _check_collisions(self):
+		"""
+		Respond to collisions between Bolan and an obstacles.
+		"""
+		cacti_rects = []
+		for cactus in self.cacti.cacti:
+			if cactus != None:
+				cacti_rects.append(cactus.image.get_rect())
+				print(cactus.image.get_rect())
+		print(self.bolan.image.get_rect().collidelist(cacti_rects))
 
 
 	def _update_objects(self):
