@@ -183,11 +183,15 @@ class Bolan:
 		self.images = self.run_images
 		self.image = self.settings.bolan_standing_image
 
+		# Rect attributes
+		self.rect = self.image.get_rect()
+		self.rect.topleft = (self.x, self.y)
+
 		# Movement attributes
 		self.gravity = 1
 		self.is_jump = False
 		self.is_duck = False
-		self.jump_speed = 1.25 
+		self.jump_speed = 1
 
 
 	def update(self):
@@ -213,7 +217,7 @@ class Bolan:
 		"""
 		Changes Bolan's sprite.
 		"""
-		if self.y < self.default_y:
+		if self.rect.y < self.default_y:
 			self.image = self.settings.bolan_standing_image
 		else:
 			if self.image_index >= len(self.images):
@@ -227,7 +231,7 @@ class Bolan:
 		"""
 		if self.is_jump and not self.is_duck:
 			self._jump()
-		elif self.is_duck and self.y >= self.default_y:
+		elif self.is_duck and self.rect.y >= self.default_y:
 			self._duck()
 		else:
 			self.images = self.run_images
@@ -238,16 +242,16 @@ class Bolan:
 		"""
 		Brings Bolan's y-position he's above default y.
 		"""
-		if self.y < self.default_y:
-			self.y += self.gravity
+		if self.rect.y < self.default_y:
+			self.rect.y += self.gravity
 
 
 	def _jump(self):
 		"""
 		Makes Bolan jump.
 		"""
-		if self.y > 220:
-			self.y -= self.jump_speed
+		if self.rect.y > 220:
+			self.rect.y -= self.jump_speed
 		else:
 			self.is_jump = False
 
@@ -263,7 +267,7 @@ class Bolan:
 		"""
 		Blit Bolan onto the screen.
 		"""
-		self.bolan_game.screen.blit(self.image, (self.x, self.y))
+		self.bolan_game.screen.blit(self.image, self.rect)
 
 
 
@@ -280,21 +284,23 @@ class Cactus:
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
 
-		self.images = self.settings.cactus_images
-		self.image = random.choice(self.images)
-
 		self.x = x
 		self.y = self.settings.cactus_y_position
+
+		self.images = self.settings.cactus_images
+		self.image = random.choice(self.images)
+		self.rect = self.image.get_rect()
+		self.rect.topleft = (self.x, self.y)
 
 
 	def update(self):
 		"""
 		Updates the Cactus object.
 		"""
-		if self.x <= -204:
-			self.x = self.settings.screen_width + 204
+		if self.rect.x <= -204:
+			self.rect.x = self.settings.screen_width + 204
 			self.image = random.choice(self.images)
-		self.x -= 1
+		self.rect.x -= 1
 
 
 class Cacti:
@@ -325,7 +331,7 @@ class Cacti:
 		Blit the cacti onto the screen.
 		"""
 		for cactus in self.cacti:
-			self.bolan_game.screen.blit(cactus.image, (cactus.x, cactus.y))
+			self.bolan_game.screen.blit(cactus.image, cactus.rect)
 
 
 

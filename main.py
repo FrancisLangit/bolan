@@ -70,7 +70,7 @@ class BolanGame:
 			sys.exit()
 		if self.is_play:
 			if event.key == pygame.K_SPACE and (
-				self.bolan.y >= self.bolan.default_y):
+				self.bolan.rect.y >= self.bolan.default_y):
 				self.bolan.is_jump = True
 			if event.key == pygame.K_DOWN:
 				self.bolan.is_duck = True
@@ -104,12 +104,7 @@ class BolanGame:
 		"""
 		Respond to collisions between Bolan and an obstacles.
 		"""
-		cacti_rects = []
-		for cactus in self.cacti.cacti:
-			if cactus != None:
-				cacti_rects.append(cactus.image.get_rect())
-				print(cactus.image.get_rect())
-		print(self.bolan.image.get_rect().collidelist(cacti_rects))
+		pass
 
 
 	def _update_objects(self):
