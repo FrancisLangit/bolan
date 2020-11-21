@@ -56,16 +56,23 @@ class GameOverImages:
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
 
-		self.image = self.settings.gameover_image
-		self.rect = self.image.get_rect(
+		self.gameover_image = self.settings.gameover_image
+		self.gameover_rect = self.gameover_image.get_rect(
 			center=self.bolan_game.screen_rect.center)
+		self.gameover_rect.y -= 30
+
+		self.retry_image = self.settings.retry_image
+		self.retry_rect = self.retry_image.get_rect(
+			center=self.bolan_game.screen_rect.center)
+		self.retry_rect.y += 50
 
 
 	def blitme(self):
 		"""
 		Blits the object onto the screen.
 		"""
-		self.bolan_game.screen.blit(self.image, self.rect)
+		self.bolan_game.screen.blit(self.gameover_image, self.gameover_rect)
+		self.bolan_game.screen.blit(self.retry_image, self.retry_rect)
 
 
 class Cloud:
@@ -258,7 +265,7 @@ class Bolan(pygame.sprite.Sprite):
 
 	def _implement_gravity(self):
 		"""
-		Brings Bolan's y-position he's above default y.
+		Brings Bolan's y-position down if he's above default_y.
 		"""
 		if self.rect.y < self.default_y:
 			self.rect.y += self.gravity
@@ -352,6 +359,13 @@ class Cacti:
 		"""
 		for cactus in self.cacti:
 			cactus.update()
+
+
+	def _reset_positions(self):
+		x_offset = 700
+		for cactus in self.cacti:
+			cactus.rect.x = self.settings.screen_width + 204 + x_offset
+			x_offset += 700
 
 
 	def blitme(self):

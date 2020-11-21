@@ -25,17 +25,19 @@ class Settings:
 
 
 		# Title settings 
-		self.title_font = pygame.font.Font("fonts/PressStart2P.ttf", 48)
+		self.title_font = pygame.font.Font("fonts/PressStart2P.ttf", 32)
 		self.title_image = self.title_font.render(
-			"Bolan.py", True, (83, 83, 83))
+			"B O L A N . P Y", True, (83, 83, 83))
 		self.subtitle_font = pygame.font.Font("fonts/Fipps.otf", 16)
 		self.subtitle_image = self.subtitle_font.render(
-			"Press Space to Play", True, (83, 83, 83))
+			"Press ENTER to Play", True, (83, 83, 83))
 
 
 		# GameOverImages settings
 		self.gameover_image = self.spritesheet.image_at(
-			(1294, 29, 381, 21), colorkey=self.spritesheet_colorkey)
+			(1294, 29, 381, 21), self.spritesheet_colorkey)
+		self.retry_image = self.spritesheet.image_at(
+			(2, 2, 72, 64), self.spritesheet_colorkey)
 
 
 		# Bolan settings
@@ -48,9 +50,9 @@ class Settings:
 			(2206, 6, 118, 94), 2, self.spritesheet_colorkey)
 
 		self.bolan_standing_image = self.spritesheet.image_at(
-			(1678, 2, 88, 94), colorkey=self.spritesheet_colorkey)
+			(1678, 2, 88, 94), self.spritesheet_colorkey)
 		self.bolan_dead_image = self.spritesheet.image_at(
-			(2030, 2, 88, 94), colorkey=self.spritesheet_colorkey)
+			(2030, 2, 88, 94), self.spritesheet_colorkey)
 		
 		self.bolan_update_rate = 60 # Update Bolan's image every 60 ticks.
 
@@ -84,7 +86,7 @@ class Settings:
 
 		# Cloud settings
 		self.cloud_image = self.spritesheet.image_at(
-			(166, 2, 92, 27), colorkey=self.spritesheet_colorkey)
+			(166, 2, 92, 27), self.spritesheet_colorkey)
 		self.cloud_x_range = range(100, 1180)
 		self.cloud_y_range = range(75, 300)
 		self.cloud_number = 6

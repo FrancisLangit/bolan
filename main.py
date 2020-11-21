@@ -63,6 +63,9 @@ class BolanGame:
 			elif event.type == pygame.KEYUP:
 				self._check_keyup_events(event)
 
+			elif event.type == pygame.MOUSEBUTTONDOWN:
+				self._check_retry_button(pygame.mouse.get_pos())
+
 
 	def _check_keydown_events(self, event):
 		"""
@@ -77,7 +80,7 @@ class BolanGame:
 			if event.key == pygame.K_DOWN:
 				self.bolan.is_duck = True
 		else:
-			if event.key == pygame.K_SPACE:
+			if event.key == pygame.K_RETURN:
 				self.is_play = True
 
 
@@ -87,6 +90,24 @@ class BolanGame:
 		"""
 		if event.key == pygame.K_DOWN:
 			self.bolan.is_duck = False
+
+
+	def _check_retry_button(self, mouse_position):
+		"""
+		Checks if the user clicks the mousebutton within the retry button.
+		"""
+		if self.gameover_images.retry_rect.collidepoint(mouse_position):
+			self._reset_game()
+			
+
+	def _reset_game(self):
+		"""
+		Resets the game to its settings upon startup.
+		"""
+		self.is_play = True
+		self.is_gameover = False
+		self.cacti._reset_positions()
+		self.bolan.rect.y = self.bolan.default_y
 
 
 	def _update_screen(self):
