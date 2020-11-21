@@ -2,7 +2,6 @@ import pygame
 
 from spritesheet import SpriteSheet
 
-import helpers
 
 class Settings:
 	"""
@@ -43,10 +42,11 @@ class Settings:
 		self.bolan_x_position = 20
 		self.bolan_y_position = 440
 
-		self.bolan_run_images = helpers.get_sprites(
-			self.bolan_game, 2, 1854, 2, 88, 94)
-		self.bolan_duck_images = helpers.get_sprites(
-			self.bolan_game, 2, 2206, 6, 118, 94)
+		self.bolan_run_images = self.spritesheet.load_strip(
+			(1854, 2, 88, 94), 2, self.spritesheet_colorkey)
+		self.bolan_duck_images = self.spritesheet.load_strip(
+			(2206, 6, 118, 94), 2, self.spritesheet_colorkey)
+
 		self.bolan_standing_image = self.spritesheet.image_at(
 			(1678, 2, 88, 94), colorkey=self.spritesheet_colorkey)
 		self.bolan_dead_image = self.spritesheet.image_at(

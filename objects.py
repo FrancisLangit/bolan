@@ -1,7 +1,5 @@
 import pygame, random
 
-import helpers
-
 
 class Title:
 	"""

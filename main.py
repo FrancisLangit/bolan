@@ -115,8 +115,6 @@ class BolanGame:
 				self.is_gameover = True
 				self.bolan.image = self.settings.bolan_dead_image
 
-		# pygame.sprite.collide_rect_ratio(0.5)
-
 
 	def _update_objects(self):
 		"""
