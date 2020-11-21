@@ -156,7 +156,7 @@ class Floor:
 		self.bolan_game.screen.blit(self.image, (self.x_2, self.y))
 
 
-class Bolan:
+class Bolan(pygame.sprite.Sprite):
 	"""
 	Represents Bolan, the T-Rex that the player plays as.
 	"""
@@ -166,6 +166,7 @@ class Bolan:
 		"""
 		Initalize Bolan class attributes.
 		"""
+		super().__init__()
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
 
@@ -182,11 +183,8 @@ class Bolan:
 		self.duck_images = self.settings.bolan_duck_images
 		self.images = self.run_images
 		self.image = self.settings.bolan_standing_image
-
-		# Rect attributes
-		self.rect = self.image.get_rect()
-		self.rect.topleft = (self.x, self.y)
-		# self.hitbox = pygame.Rect(self.x - 20, self.y, 88, 94)
+		self.rect = self.image.get_rect(topleft=(self.x, self.y))
+		self.mask = pygame.mask.from_surface(self.image)
 
 		# Movement attributes
 		self.gravity = 1
@@ -268,13 +266,12 @@ class Bolan:
 		"""
 		Blit Bolan onto the screen.
 		"""
-		pygame.draw.rect(self.bolan_game.screen, (0, 0, 0), self.rect)
 		self.bolan_game.screen.blit(self.image, self.rect)
 
 
 
 
-class Cactus:
+class Cactus(pygame.sprite.Sprite):
 	"""
 	Represents a single Cactus.
 	"""
@@ -284,6 +281,7 @@ class Cactus:
 		"""
 		Initialize Cactus class attributes.
 		"""
+		super().__init__()
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
 
@@ -298,8 +296,7 @@ class Cactus:
 		Initializes self.images, self.rect, and self.rect.topleft.
 		"""
 		self.image = random.choice(self.images)
-		self.rect = self.image.get_rect()
-		self.rect.midbottom = (self.x, 530)
+		self.rect = self.image.get_rect(midbottom=(self.x, 530))
 
 
 	def update(self):
@@ -340,7 +337,6 @@ class Cacti:
 		Blit the cacti onto the screen.
 		"""
 		for cactus in self.cacti:
-			pygame.draw.rect(self.bolan_game.screen, (0, 0, 0), cactus.rect)
 			self.bolan_game.screen.blit(cactus.image, cactus.rect)
 
 

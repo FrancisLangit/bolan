@@ -56,7 +56,6 @@ class Settings:
 
 
 		# Cactus settings
-
 		self.cactus_small_images = self.bolan_game.spritesheet.load_strip(
 			(447, 28, 34, 70), 6, self.spritesheet_colorkey)
 		self.cactus_big_images = self.bolan_game.spritesheet.load_strip(
@@ -68,7 +67,6 @@ class Settings:
 			(702, 2, 100, 100), ], # Two big cacti.
 			self.spritesheet_colorkey,
 		)
-
 		self.cactus_images = (
 			self.cactus_small_images +
 			self.cactus_big_images + 

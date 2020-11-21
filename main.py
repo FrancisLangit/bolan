@@ -29,6 +29,7 @@ class BolanGame:
 
 		# Track gamestate.
 		self.is_play = False
+		self.is_gameover = False
 
 		# Game objects.
 		self.main_menu = objects.MainMenu(self)
@@ -104,10 +105,14 @@ class BolanGame:
 		"""
 		Respond to collisions between Bolan and an obstacles.
 		"""
-		cacti_rects = [cactus.rect for cactus in self.cacti.cacti]
-		if self.bolan.rect.collidelist(cacti_rects) != -1:
-			# self.is_play = False
-			pass
+		# cacti_rects = [cactus.rect for cactus in self.cacti.cacti]
+		# if self.bolan.rect.collidelist(cacti_rects) != -1:
+		# 	self.is_play = False
+
+		if pygame.sprite.spritecollide(
+			self.bolan, self.cacti.cacti, False, pygame.sprite.collide_mask):
+			self.is_play = False
+			self.is_gameover = True
 
 
 	def _update_objects(self):
