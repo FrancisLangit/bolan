@@ -3,9 +3,9 @@ import pygame, random
 import helpers
 
 
-class MainMenu:
+class Title:
 	"""
-	Text that appears on screen when is_play is False.
+	Text that appears on screen at the beginning of the game.
 	"""
 
 
@@ -17,14 +17,13 @@ class MainMenu:
 		self.settings = bolan_game.settings
 
 		self.title_image = self.settings.title_image
-		self.title_rect = self.title_image.get_rect()
-		self.title_rect.centerx = self.bolan_game.screen_rect.centerx
-		self.title_rect.centery = self.bolan_game.screen_rect.centery - 75
+		self.title_rect = self.title_image.get_rect(
+			center=self.bolan_game.screen_rect.center)
+		self.title_rect.y -= 75
 
 		self.subtitle_image = self.settings.subtitle_image
-		self.subtitle_rect = self.subtitle_image.get_rect()
-		self.subtitle_rect.centerx = self.bolan_game.screen_rect.centerx
-		self.subtitle_rect.centery = self.bolan_game.screen_rect.centery
+		self.subtitle_rect = self.subtitle_image.get_rect(
+			center=self.bolan_game.screen_rect.center)
 		self.subtitle_frame = 0
 
 
@@ -47,6 +46,28 @@ class MainMenu:
 		"""
 		self._blit_subtitle()	
 		self.bolan_game.screen.blit(self.title_image, self.title_rect)
+
+
+class GameOverImages:
+	"""
+	Images that appear on screen when the game is over.
+	"""
+
+
+	def __init__(self, bolan_game):
+		self.bolan_game = bolan_game
+		self.settings = bolan_game.settings
+
+		self.image = self.settings.gameover_image
+		self.rect = self.image.get_rect(
+			center=self.bolan_game.screen_rect.center)
+
+
+	def blitme(self):
+		"""
+		Blits the object onto the screen.
+		"""
+		self.bolan_game.screen.blit(self.image, self.rect)
 
 
 class Cloud:
@@ -266,6 +287,7 @@ class Bolan(pygame.sprite.Sprite):
 		"""
 		Blit Bolan onto the screen.
 		"""
+		# pygame.draw.rect(self.bolan_game.screen, (0, 0, 0),  self.rect)
 		self.bolan_game.screen.blit(self.image, self.rect)
 
 
@@ -291,12 +313,14 @@ class Cactus(pygame.sprite.Sprite):
 		self._initialize_image_attributes()
 
 
+
 	def _initialize_image_attributes(self):
 		"""
 		Initializes self.images, self.rect, and self.rect.topleft.
 		"""
 		self.image = random.choice(self.images)
 		self.rect = self.image.get_rect(midbottom=(self.x, 530))
+		self.mask = pygame.mask.from_surface(self.image)
 
 
 	def update(self):

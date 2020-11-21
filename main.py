@@ -32,7 +32,8 @@ class BolanGame:
 		self.is_gameover = False
 
 		# Game objects.
-		self.main_menu = objects.MainMenu(self)
+		self.title = objects.Title(self)
+		self.gameover_images = objects.GameOverImages(self)
 		self.floor = objects.Floor(self)
 		self.clouds = objects.Clouds(self)
 		self.bolan = objects.Bolan(self)
@@ -105,14 +106,16 @@ class BolanGame:
 		"""
 		Respond to collisions between Bolan and an obstacles.
 		"""
-		# cacti_rects = [cactus.rect for cactus in self.cacti.cacti]
-		# if self.bolan.rect.collidelist(cacti_rects) != -1:
-		# 	self.is_play = False
-
 		if pygame.sprite.spritecollide(
-			self.bolan, self.cacti.cacti, False, pygame.sprite.collide_mask):
-			self.is_play = False
-			self.is_gameover = True
+			self.bolan, 
+			self.cacti.cacti, 
+			False, 
+			pygame.sprite.collide_mask):
+				self.is_play = False
+				self.is_gameover = True
+				self.bolan.image = self.settings.bolan_dead_image
+
+		# pygame.sprite.collide_rect_ratio(0.5)
 
 
 	def _update_objects(self):
@@ -134,9 +137,13 @@ class BolanGame:
 		self.floor.blitme()
 		self.bolan.blitme()
 		self.cacti.blitme()
+		self._blit_text()
 
-		if not self.is_play:
-			self.main_menu.blitme()
+	def _blit_text(self):
+		if not self.is_play and not self.is_gameover:
+			self.title.blitme()
+		elif self.is_gameover:
+			self.gameover_images.blitme()
 
 
 if __name__ == '__main__':
