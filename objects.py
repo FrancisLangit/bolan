@@ -94,19 +94,42 @@ class Scoreboard:
 		self.settings = bolan_game.settings
 
 		self.score = 0
-
 		self.font = pygame.font.Font("fonts/PressStart2P.ttf", 20)
-		self.initialize_image()
+		with open("highscore.txt", 'r') as highscore:
+			self.highscore = int(highscore.read())
+
+		# Render images.
+		self.render_score_image()
+		self.render_highscore_image()
 
 
-	def initialize_image(self):
+	def render_score_image(self):
 		"""
-		Creates image and rect variables of object.
+		Turns the score into a rendered image.
 		"""
-		self.image = self.font.render(str(self.score), False, (83, 83, 83))
-		self.rect = self.image.get_rect(
+		self.score_image = self.font.render(
+			str(self.score), False, (83, 83, 83))
+		self.score_rect = self.score_image.get_rect(
 			topright=self.bolan_game.screen_rect.topright)
-		self.rect = (self.rect.x - 30, self.rect.y + 30)
+		self.score_rect = (self.score_rect.x - 30, self.score_rect.y + 30)
+
+
+	def render_highscore_image(self):
+		"""
+		Turns the highscore into a rendered image.
+		"""
+		self.highscore_image = self.font.render(
+			f"HI {str(self.highscore)}", False, (83, 83, 83))
+		self.highscore_rect = self.highscore_image.get_rect(
+			topleft=self.bolan_game.screen_rect.topleft)
+		self.highscore_rect = (
+			self.highscore_rect.x + 30, self.highscore_rect.y + 30)
+
+
+	def check_highscore(self):
+		if self.score > self.highscore:
+			self.highscore = self.score
+			self.render_highscore_image()
 
 
 	def update(self):
@@ -115,14 +138,16 @@ class Scoreboard:
 		"""
 		if not self.bolan_game.is_gameover:
 			self.score += 1
-		self.initialize_image()
+		self.render_score_image()
+		self.check_highscore()
 
 
 	def blitme(self):
 		"""
 		Blits the scoreboard onto the screen.
 		"""
-		self.bolan_game.screen.blit(self.image, self.rect)
+		self.bolan_game.screen.blit(self.score_image, self.score_rect)
+		self.bolan_game.screen.blit(self.highscore_image, self.highscore_rect)
 
 
 
