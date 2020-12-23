@@ -34,6 +34,7 @@ class BolanGame:
 		# Game objects.
 		self.title = objects.Title(self)
 		self.gameover_images = objects.GameOverImages(self)
+		self.scoreboard = objects.Scoreboard(self)
 		self.floor = objects.Floor(self)
 		self.clouds = objects.Clouds(self)
 		self.bolan = objects.Bolan(self)
@@ -108,6 +109,7 @@ class BolanGame:
 		self.is_gameover = False
 		self.cacti._reset_positions()
 		self.bolan.rect.y = self.bolan.default_y
+		self.scoreboard.score = 0
 
 
 	def _update_screen(self):
@@ -146,6 +148,7 @@ class BolanGame:
 			self.floor.update()
 			self.bolan.update()
 			self.cacti.update()
+			self.scoreboard.update()
 
 
 	def _blit_objects(self):
@@ -157,6 +160,7 @@ class BolanGame:
 		self.bolan.blitme()
 		self.cacti.blitme()
 		self._blit_text()
+		self.scoreboard.blitme()
 
 	def _blit_text(self):
 		if not self.is_play and not self.is_gameover:

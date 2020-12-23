@@ -46,6 +46,8 @@ class Title:
 		self.bolan_game.screen.blit(self.title_image, self.title_rect)
 
 
+
+
 class GameOverImages:
 	"""
 	Images that appear on screen when the game is over.
@@ -53,6 +55,9 @@ class GameOverImages:
 
 
 	def __init__(self, bolan_game):
+		"""
+		Initialize object attributes.
+		"""
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
 
@@ -73,6 +78,53 @@ class GameOverImages:
 		"""
 		self.bolan_game.screen.blit(self.gameover_image, self.gameover_rect)
 		self.bolan_game.screen.blit(self.retry_image, self.retry_rect)
+
+
+
+
+
+class Scoreboard:
+	"""
+	Displays the score of the player. Increments as time passes.
+	"""
+
+
+	def __init__(self, bolan_game):
+		self.bolan_game = bolan_game
+		self.settings = bolan_game.settings
+
+		self.score = 0
+
+		self.font = pygame.font.Font("fonts/PressStart2P.ttf", 20)
+		self.initialize_image()
+
+
+	def initialize_image(self):
+		"""
+		Creates image and rect variables of object.
+		"""
+		self.image = self.font.render(str(self.score), False, (83, 83, 83))
+		self.rect = self.image.get_rect(
+			topright=self.bolan_game.screen_rect.topright)
+		self.rect = (self.rect.x - 30, self.rect.y + 30)
+
+
+	def update(self):
+		"""
+		Updates the score.
+		"""
+		if not self.bolan_game.is_gameover:
+			self.score += 1
+		self.initialize_image()
+
+
+	def blitme(self):
+		"""
+		Blits the scoreboard onto the screen.
+		"""
+		self.bolan_game.screen.blit(self.image, self.rect)
+
+
 
 
 class Cloud:
@@ -99,6 +151,8 @@ class Cloud:
 		if self.x <= -self.rect.width:
 			self.x = self.settings.screen_width + self.rect.width
 		self.x -= 0.1
+
+
 
 
 class Clouds:
@@ -137,6 +191,8 @@ class Clouds:
 		"""
 		for cloud in self.clouds:
 			self.bolan_game.screen.blit(cloud.image, (cloud.x, cloud.y))
+
+
 
 
 class Floor:
@@ -180,6 +236,8 @@ class Floor:
 		"""
 		self.bolan_game.screen.blit(self.image, (self.x_1, self.y))
 		self.bolan_game.screen.blit(self.image, (self.x_2, self.y))
+
+
 
 
 class Bolan(pygame.sprite.Sprite):
@@ -298,6 +356,7 @@ class Bolan(pygame.sprite.Sprite):
 
 
 
+
 class Cactus(pygame.sprite.Sprite):
 	"""
 	Represents a single Cactus.
@@ -338,6 +397,8 @@ class Cactus(pygame.sprite.Sprite):
 		self.rect.x -= 1
 
 
+
+
 class Cacti:
 	"""
 	Represents the cacti that procedurally generate at fixed intervals.
@@ -374,9 +435,3 @@ class Cacti:
 		"""
 		for cactus in self.cacti:
 			self.bolan_game.screen.blit(cactus.image, cactus.rect)
-
-
-
-
-
-
