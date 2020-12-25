@@ -22,7 +22,7 @@ class Settings:
 		self.background_color = (255, 255, 255)
 		self.display_caption = "Bolan.py"
 		self.spritesheet_colorkey = (0, 0, 0)
-		self.max_fps = 750
+		self.max_fps = 600
 
 
 		# Title settings 
