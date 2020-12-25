@@ -75,7 +75,9 @@ class BolanGame:
 		Checks keydown events.
 		"""
 		if event.key in (pygame.K_q, pygame.K_ESCAPE):
-			self._save_highscore()
+			# Save highscore before exiting program.
+			with open("highscore.txt", 'w') as highscore:
+				highscore.write(str(self.scoreboard.highscore))
 			sys.exit()
 		if self.is_play:
 			if event.key == pygame.K_SPACE and (
@@ -113,14 +115,6 @@ class BolanGame:
 		self.cacti._reset_positions()
 		self.bolan.rect.y = self.bolan.default_y
 		self.scoreboard.score = 0
-
-
-	def _save_highscore(self):
-		"""
-		Writes new highscore of play upon exiting program. 
-		"""
-		with open("highscore.txt", 'w') as highscore:
-			highscore.write(str(self.scoreboard.highscore))
 
 
 	def _update_screen(self):
