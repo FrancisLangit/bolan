@@ -265,7 +265,7 @@ class Floor:
 
 
 
-class Bolan(pygame.sprite.Sprite):
+class Bolan:
 	"""
 	Represents Bolan, the T-Rex that the player plays as.
 	"""
@@ -382,7 +382,7 @@ class Bolan(pygame.sprite.Sprite):
 
 
 
-class Cactus(pygame.sprite.Sprite):
+class Cactus:
 	"""
 	Represents a single Cactus.
 	"""
