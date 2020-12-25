@@ -26,10 +26,12 @@ class Settings:
 
 
 		# Title settings 
-		self.title_font = pygame.font.Font("fonts/PressStart2P.ttf", 32)
+		self.title_font = pygame.font.Font(
+			"game_assets/fonts/PressStart2P.ttf", 32)
 		self.title_image = self.title_font.render(
 			"B O L A N . P Y", True, (83, 83, 83))
-		self.subtitle_font = pygame.font.Font("fonts/Fipps.otf", 16)
+		self.subtitle_font = pygame.font.Font(
+			"game_assets/fonts/Fipps.otf", 16)
 		self.subtitle_image = self.subtitle_font.render(
 			"Press ENTER to Play", True, (83, 83, 83))
 

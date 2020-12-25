@@ -18,7 +18,7 @@ class BolanGame:
 		"""
 		pygame.init()
 		self.clock = pygame.time.Clock()
-		self.spritesheet = SpriteSheet('images/spritesheet.png')
+		self.spritesheet = SpriteSheet('game_assets/images/spritesheet.png')
 		self.settings = Settings(self)
 
 		self.screen = pygame.display.set_mode((
@@ -76,7 +76,7 @@ class BolanGame:
 		"""
 		if event.key in (pygame.K_q, pygame.K_ESCAPE):
 			# Save highscore before exiting program.
-			with open("highscore.txt", 'w') as highscore:
+			with open("game_assets/highscore.txt", 'w') as highscore:
 				highscore.write(str(self.scoreboard.highscore))
 			sys.exit()
 		if self.is_play:

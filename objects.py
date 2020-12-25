@@ -94,8 +94,8 @@ class Scoreboard:
 		self.settings = bolan_game.settings
 
 		self.score = 0
-		self.font = pygame.font.Font("fonts/PressStart2P.ttf", 20)
-		with open("highscore.txt", 'r') as highscore:
+		self.font = pygame.font.Font("game_assets/fonts/PressStart2P.ttf", 20)
+		with open("game_assets/highscore.txt", 'r') as highscore:
 			self.highscore = int(highscore.read())
 
 		# Render images.
