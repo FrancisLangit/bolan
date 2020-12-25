@@ -17,6 +17,7 @@ class BolanGame:
 		Initialize the game
 		"""
 		pygame.init()
+		self.clock = pygame.time.Clock()
 		self.spritesheet = SpriteSheet('images/spritesheet.png')
 		self.settings = Settings(self)
 
@@ -46,6 +47,7 @@ class BolanGame:
 		Start the game's main loop.
 		"""
 		while True:
+			self.clock.tick(self.settings.max_fps)
 			self._check_events()
 			self._update_screen()
 
@@ -73,6 +75,7 @@ class BolanGame:
 		Checks keydown events.
 		"""
 		if event.key in (pygame.K_q, pygame.K_ESCAPE):
+			self._save_highscore()
 			sys.exit()
 		if self.is_play:
 			if event.key == pygame.K_SPACE and (
@@ -110,6 +113,14 @@ class BolanGame:
 		self.cacti._reset_positions()
 		self.bolan.rect.y = self.bolan.default_y
 		self.scoreboard.score = 0
+
+
+	def _save_highscore(self):
+		"""
+		Writes new highscore of play upon exiting program. 
+		"""
+		with open("highscore.txt", 'w') as highscore:
+			highscore.write(str(self.scoreboard.highscore))
 
 
 	def _update_screen(self):
