@@ -85,6 +85,9 @@ class BolanGame:
 				self.bolan.is_jump = True
 			if event.key == pygame.K_DOWN:
 				self.bolan.is_duck = True
+		elif self.is_gameover:
+			if event.key == pygame.K_RETURN or event.key == pygame.K_r:
+				self._reset_game()
 		else:
 			if event.key == pygame.K_RETURN:
 				self.is_play = True
