@@ -41,7 +41,7 @@ For reference, the ```SpriteSheet``` class used by the repository can be found i
 
 ## Installation and Usage
 
-**Note**: Skip the first step if Python 3 is already installed on your computer. One may also skip step two if they've already install Pygame.
+**Note**: Skip the first step if Python 3 is already installed on your computer. You may also skip step two if you already have Pygame installed.
 
 1. [Install Python](https://www.python.org/downloads/). Version 3.8.3 and above is recommended.
 
