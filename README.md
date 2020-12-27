@@ -61,6 +61,9 @@ For reference, the ```SpriteSheet``` class used by the repository can be found i
 
 Pull requests are welcome for those that would like to make a contribution. On that note, for those that would like to apply major changes to the repository, we'd like to request that you open up an issue first and discuss the changes you'd like to make.
 
+Those that have contributed to the project thus far include:
+- **WilliWonka91** - Added code to allow the player to restart the program's gameplay from the gameover gamestate using either the RETURN or R keys.
+
 ## License
 
 MIT License
