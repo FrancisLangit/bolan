@@ -331,7 +331,7 @@ class Bolan:
 			if self.image_index >= len(self.images):
 				self.image_index = 0
 			self.image = self.images[self.image_index]
-
+		self.mask = pygame.mask.from_surface(self.image)
 
 	def _player_control(self):
 		"""
@@ -382,81 +382,120 @@ class Bolan:
 
 
 
-class Cactus:
+class Obstacle:
 	"""
-	Represents a single Cactus.
+	Represents a single Obstacle.
 	"""
 
 
 	def __init__(self, bolan_game, x):
 		"""
-		Initialize Cactus class attributes.
+		Initialize Obstacle class attributes.
 		"""
 		super().__init__()
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
 
 		self.x = x
-
-		self.images = self.settings.cactus_images
+		# Image attributes
+		self.image_frame = 0
+		self.image_index = 0
+		self.images_Pterodactyl = self.settings.pterodactyl_images
+		self.images_Cacti = self.settings.cactus_images
 		self._initialize_image_attributes()
-
 
 
 	def _initialize_image_attributes(self):
 		"""
 		Initializes self.images, self.rect, and self.rect.topleft.
+		Randomizes between Cacti or Pterodactyl if score is high enough
 		"""
+		
+		if self.bolan_game.scoreboard.score<self.settings.pterodactyl_min_score:
+			self.is_Cactus=True
+		else:
+			self.is_Cactus= random.choice([True,False])
+			
+		if self.is_Cactus:
+			self.images=self.images_Cacti
+			self.y=530
+		else:
+			self.images=self.images_Pterodactyl
+			self.y= random.choice([520,460,410])
+			#520: jump	#460: duck or jump	#410: walk under, no jump over
 		self.image = random.choice(self.images)
-		self.rect = self.image.get_rect(midbottom=(self.x, 530))
+		self.rect = self.image.get_rect(midbottom=(self.x, self.y))
 		self.mask = pygame.mask.from_surface(self.image)
 
 
+	def _update_sprite(self, image_frame, image_index):
+		"""
+		Changes Pterodactyl's sprite.
+		"""
+		if self.image_index >= len(self.images):
+			self.image_index = 0
+		self.image = self.images[self.image_index]
+		self.mask = pygame.mask.from_surface(self.image)
+		
+		
+	def _increment_animation(self):
+		"""
+		Defines the rate at which Pterodactyl's images change.
+		"""
+		self.image_frame += 1
+		if self.image_frame == self.settings.bolan_update_rate: 
+			self.image_frame = 0
+			self.image_index += 1
+			
+			
 	def update(self):
 		"""
-		Updates the Cactus object.
+		Updates the Obstacle object.
 		"""
+		if not self.is_Cactus:
+			self._increment_animation()
+			self._update_sprite(self.image_frame, self.image_index)
 		if self.rect.x <= -204:
 			self._initialize_image_attributes()
 			self.rect.x = self.settings.screen_width + 204
 		self.rect.x -= 1
 
 
-
-
-class Cacti:
+class Obstacles:
 	"""
-	Represents the cacti that procedurally generate at fixed intervals.
+	Represents the obstacles that procedurally generate at fixed intervals.
 	"""
 
 
 	def __init__(self, bolan_game):
 		"""
-		Initialize Cacti class attributes.
+		Initialize Obstacles class attributes.
 		"""
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
-		self.cacti = [Cactus(bolan_game, x) for x in range(1400, 2800, 700)]
+		self.obstacles = [Obstacle(bolan_game, x) for x in range(1400, 2800, 700)]
 
 
 	def update(self):
 		"""
-		Update each cactus in the self.cacti iterable.
+		Update each obstacle in the self.obstacles iterable.
 		"""
-		for cactus in self.cacti:
-			cactus.update()
+		for obstacle in self.obstacles:
+			obstacle.update()
 
 
 	def _reset_positions(self):
 		x_offset = 700
-		for cactus in self.cacti:
-			cactus.rect.x = self.settings.screen_width + 204 + x_offset
+		for obstacle in self.obstacles:
+			obstacle.rect.x = self.settings.screen_width + 204 + x_offset
+			obstacle._initialize_image_attributes()
 			x_offset += 700
 
 
 	def blitme(self):
 		"""
-		Blit the cacti onto the screen.
+		Blit the obstacles onto the screen.
 		"""
-		for cactus in self.cacti:
-			self.bolan_game.screen.blit(cactus.image, cactus.rect)
+		for obstacle in self.obstacles:
+			self.bolan_game.screen.blit(obstacle.image, obstacle.rect)
+
