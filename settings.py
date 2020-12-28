@@ -59,7 +59,11 @@ class Settings:
 		
 		self.bolan_update_rate = 60 # Update Bolan's image every 60 ticks.
 
-
+		#Pterodactyl setting
+		self.pterodactyl_images = self.spritesheet.load_strip(
+			(261, 2, 91, 80), 2, self.spritesheet_colorkey)
+		self.pterodactyl_min_score=10000
+		
 		# Floor settings
 		self.floor_rect = [2, 104, 2400, 26]
 		self.floor_y = 500

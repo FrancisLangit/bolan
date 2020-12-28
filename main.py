@@ -39,8 +39,7 @@ class BolanGame:
 		self.floor = objects.Floor(self)
 		self.clouds = objects.Clouds(self)
 		self.bolan = objects.Bolan(self)
-		self.cacti = objects.Cacti(self)
-
+		self.obstacles = objects.Obstacles(self)
 
 	def run(self):
 		"""
@@ -80,7 +79,7 @@ class BolanGame:
 				highscore.write(str(self.scoreboard.highscore))
 			sys.exit()
 		if self.is_play:
-			if event.key == pygame.K_SPACE and (
+			if (event.key == pygame.K_SPACE or event.key == pygame.K_UP) and (
 				self.bolan.rect.y >= self.bolan.default_y):
 				self.bolan.is_jump = True
 			if event.key == pygame.K_DOWN:
@@ -115,10 +114,9 @@ class BolanGame:
 		"""
 		self.is_play = True
 		self.is_gameover = False
-		self.cacti._reset_positions()
 		self.bolan.rect.y = self.bolan.default_y
 		self.scoreboard.score = 0
-
+		self.obstacles._reset_positions()
 
 	def _update_screen(self):
 		"""
@@ -139,7 +137,7 @@ class BolanGame:
 		"""
 		if pygame.sprite.spritecollide(
 			self.bolan, 
-			self.cacti.cacti, 
+			self.obstacles.obstacles,
 			False, 
 			pygame.sprite.collide_mask):
 				self.is_play = False
@@ -155,7 +153,7 @@ class BolanGame:
 		if self.is_play:
 			self.floor.update()
 			self.bolan.update()
-			self.cacti.update()
+			self.obstacles.update()
 			self.scoreboard.update()
 
 
@@ -166,7 +164,7 @@ class BolanGame:
 		self.clouds.blitme()
 		self.floor.blitme()
 		self.bolan.blitme()
-		self.cacti.blitme()
+		self.obstacles.blitme()
 		self._blit_text()
 		self.scoreboard.blitme()
 
