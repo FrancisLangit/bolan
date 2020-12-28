@@ -63,8 +63,14 @@ class Settings:
 		# Pterodactyl settings
 		self.pterodactyl_images = self.spritesheet.load_strip(
 			(261, 2, 91, 80), 2, self.spritesheet_colorkey)
-		self.pterodactyl_heights = [520, 460, 410] # 520: Jump, 460: Duck/Jump, 410: Run Under |
-		self.pterodactyl_min_score = 10000 # Starts spawning at 10,000 points.
+
+		# Update Pterodactyl's image every 150 ticks.
+		self.pterodactyl_update_rate = 150
+
+		# Heights at which the Pterodactyl can spawn.
+		# 520: Jump, 460: Jump/Duck, 410: Run Under.
+		self.pterodactyl_heights = [520, 460, 410]
+		self.pterodactyl_min_score = 1000 # Starts spawning at 10,000 points.
 		
 
 		# Floor settings

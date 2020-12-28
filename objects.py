@@ -278,6 +278,7 @@ class Bolan:
 		super().__init__()
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
+		self.is_bolan = True
 
 		# In-game coordinates and dimensions
 		self.default_x = self.settings.bolan_x_position
@@ -307,7 +308,7 @@ class Bolan:
 		Updates Bolan.
 		"""
 		self._increment_animation(self.settings.bolan_update_rate)
-		self._update_sprite(self.image_frame, self.image_index)
+		self._update_sprite(self.image_frame, self.image_index, True)
 		self._player_control()
 
 
@@ -321,17 +322,25 @@ class Bolan:
 			self.image_index += 1
 
 
-	def _update_sprite(self, image_frame, image_index):
+	def _update_sprite(self, image_frame, image_index, is_bolan=False):
 		"""
 		Updates Bolan's sprite.
 		"""
-		if self.rect.y < self.default_y:
+		self.mask = pygame.mask.from_surface(self.image)
+		if self.rect.y < self.default_y and is_bolan:
 			self.image = self.settings.bolan_standing_image
 		else:
-			if self.image_index >= len(self.images):
-				self.image_index = 0
-			self.image = self.images[self.image_index]
-		self.mask = pygame.mask.from_surface(self.image)
+			self._animate()
+
+
+	def _animate(self):
+		"""
+		Animates Bolan.
+		"""
+		if self.image_index >= len(self.images):
+			self.image_index = 0
+		self.image = self.images[self.image_index]
+
 
 	def _player_control(self):
 		"""
@@ -382,7 +391,7 @@ class Bolan:
 
 
 
-class Obstacle:
+class Obstacle(Bolan):
 	"""
 	Represents a single Obstacle.
 	"""
@@ -392,10 +401,9 @@ class Obstacle:
 		"""
 		Initialize Obstacle class attributes.
 		"""
-		super().__init__()
+		super().__init__(bolan_game)
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
-
 		self.x = x
 
 		# Image attributes
@@ -417,7 +425,7 @@ class Obstacle:
 		self._check_pterodactyl_min_score()
 		self._choose_obstacle()
 		self.image = random.choice(self.images)
-		self.rect = self.image.get_rect(midbottom = (self.x, self.y))
+		self.rect = self.image.get_rect(midbottom=(self.x, self.y))
 		self.mask = pygame.mask.from_surface(self.image)
 
 
@@ -441,38 +449,20 @@ class Obstacle:
 			self.images = self.images_pterodactyl
 			self.y = random.choice(self.settings.pterodactyl_heights)
 
-
-	def _update_sprite(self, image_frame, image_index):
-		"""
-		Changes Pterodactyl's sprite.
-		"""
-		if self.image_index >= len(self.images):
-			self.image_index = 0
-		self.image = self.images[self.image_index]
-		self.mask = pygame.mask.from_surface(self.image)
-		
-		
-	def _increment_animation(self):
-		"""
-		Defines the rate at which Pterodactyl's images change.
-		"""
-		self.image_frame += 1
-		if self.image_frame == self.settings.bolan_update_rate: 
-			self.image_frame = 0
-			self.image_index += 1
-			
 			
 	def update(self):
 		"""
 		Updates the Obstacle object.
 		"""
 		if not self.is_Cactus:
-			self._increment_animation()
+			self._increment_animation(self.settings.pterodactyl_update_rate)
 			self._update_sprite(self.image_frame, self.image_index)
 		if self.rect.x <= -204:
 			self._initialize_image_attributes()
 			self.rect.x = self.settings.screen_width + 204
 		self.rect.x -= 1
+
+
 
 
 class Obstacles:
