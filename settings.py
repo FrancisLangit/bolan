@@ -23,6 +23,7 @@ class Settings:
 		self.display_caption = "Bolan.py"
 		self.spritesheet_colorkey = (0, 0, 0)
 		self.max_fps = 600
+		self.score_increment_rate = 80 # Rate at which score increments.
 
 
 		# Title settings 
@@ -68,9 +69,11 @@ class Settings:
 		self.pterodactyl_update_rate = 150
 
 		# Heights at which the Pterodactyl can spawn.
-		# 520: Jump, 460: Jump/Duck, 410: Run Under.
+		# 520: Jump | 460: Jump/Duck | 410: Run Under |
 		self.pterodactyl_heights = [520, 460, 410]
-		self.pterodactyl_min_score = 1000 # Starts spawning at 10,000 points.
+
+		# Score at which Pterodactyls can start spawning.
+		self.pterodactyl_min_score = 350 
 		
 
 		# Floor settings

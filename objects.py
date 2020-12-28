@@ -94,6 +94,8 @@ class Scoreboard:
 		self.settings = bolan_game.settings
 
 		self.score = 0
+		self.score_increment_counter = 0
+
 		self.font = pygame.font.Font("game_assets/fonts/PressStart2P.ttf", 20)
 		with open("game_assets/highscore.txt", 'r') as highscore:
 			self.highscore = int(highscore.read())
@@ -127,6 +129,9 @@ class Scoreboard:
 
 
 	def check_highscore(self):
+		"""
+		Updates the highscore if current score surpasses it.
+		"""
 		if self.score > self.highscore:
 			self.highscore = self.score
 			self.render_highscore_image()
@@ -136,10 +141,21 @@ class Scoreboard:
 		"""
 		Updates the score.
 		"""
-		if not self.bolan_game.is_gameover:
-			self.score += 1
+		self._increment_score(
+			self.bolan_game.is_gameover, 
+			self.score_increment_counter, 
+			self.settings.score_increment_rate,
+		)
 		self.render_score_image()
 		self.check_highscore()
+
+
+	def _increment_score(self, is_gameover, score_increment_counter, 
+		increment_rate):
+		if not is_gameover and score_increment_counter == increment_rate:
+			self.score += 1
+			self.score_increment_counter = 0
+		self.score_increment_counter += 1
 
 
 	def blitme(self):
@@ -509,4 +525,3 @@ class Obstacles:
 		"""
 		for obstacle in self.obstacles:
 			self.bolan_game.screen.blit(obstacle.image, obstacle.rect)
-
