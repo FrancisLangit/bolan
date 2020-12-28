@@ -407,19 +407,17 @@ class Obstacle(Bolan):
 		self.x = x
 
 		# Image attributes
-		self.image_frame = 0
-		self.image_index = 0
+		self.pterodactyl_image_frame = 0
+		self.pterodactyl_image_index = 0
 		self.images_pterodactyl = self.settings.pterodactyl_images
 		self.images_cacti = self.settings.cactus_images
+
 		self._initialize_image_attributes()
 
 
 	def _initialize_image_attributes(self):
 		"""
-		Initializes self.images, self.rect, and self.rect.topleft.
-		
-		Randomizes between Cacti or Pterodactyl if score is equal to or above
-		10,000 points.
+		Reinitializes image attibutes that are continually redefined.
 		"""
 		self.is_Cactus = True
 		self._check_pterodactyl_min_score()
@@ -455,12 +453,20 @@ class Obstacle(Bolan):
 		Updates the Obstacle object.
 		"""
 		if not self.is_Cactus:
-			self._increment_animation(self.settings.pterodactyl_update_rate)
-			self._update_sprite(self.image_frame, self.image_index)
+			self._animate_pterodactyl()
 		if self.rect.x <= -204:
 			self._initialize_image_attributes()
 			self.rect.x = self.settings.screen_width + 204
 		self.rect.x -= 1
+
+
+	def _animate_pterodactyl(self):
+		"""
+		Animates a Pterodactyl.
+		"""
+		self._increment_animation(self.settings.pterodactyl_update_rate)
+		self._update_sprite(
+			self.pterodactyl_image_frame, self.pterodactyl_image_index)
 
 
 
