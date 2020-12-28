@@ -6,9 +6,11 @@ Bolan.py is a clone of Google Chrome's well-known [Dinosaur Game](https://en.wik
 
 ### Gameplay
 
-The player takes control of a T-Rex running across an infinite desert. The main objective is for the player to keep themselves alive as long as possible by pressing the space key to avoid the Cacti that come their way. Points are continually scored until the player collides with an obstacle, upon which the game ends and they may restart the game to attain a higher score. 
+The player takes control of a T-Rex running across an infinite desert. The main objective is for the player to keep themselves alive as long as possible by pressing the space key to avoid the Cacti and Pterodactyls that come their way. Points are continually scored until the player collides with an obstacle, upon which the game ends and they may restart the game to attain a higher score. 
 
-![playthrough.gif](readme_assets/playthrough.gif)
+**Note**: *Pterodactyls only start spawning at 350 points.*
+
+![readme_gif.gif](readme_assets/readme_gif.gif)
 
 ### Controls
 
