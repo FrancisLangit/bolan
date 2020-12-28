@@ -59,11 +59,14 @@ class Settings:
 		
 		self.bolan_update_rate = 60 # Update Bolan's image every 60 ticks.
 
-		#Pterodactyl setting
+
+		# Pterodactyl settings
 		self.pterodactyl_images = self.spritesheet.load_strip(
 			(261, 2, 91, 80), 2, self.spritesheet_colorkey)
-		self.pterodactyl_min_score=10000
+		self.pterodactyl_heights = [520, 460, 410] # 520: Jump, 460: Duck/Jump, 410: Run Under |
+		self.pterodactyl_min_score = 10000 # Starts spawning at 10,000 points.
 		
+
 		# Floor settings
 		self.floor_rect = [2, 104, 2400, 26]
 		self.floor_y = 500

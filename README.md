@@ -12,11 +12,12 @@ The player takes control of a T-Rex running across an infinite desert. The main 
 
 ### Controls
 
-| Key       | Usage                                         |
-| --------- | --------------------------------------------- |
-| Enter     | Starts the gameplay after the program is run. |
-| Q and ESC | Either can be pressed to close the program.   |
-| Space     | Makes the player jump.                        |
+| Key          | Usage                                        |
+| ------------ | -------------------------------------------- |
+| Enter        | Starts the gameplay once the program is run. |
+| Q and ESC    | Either can be pressed to close the program.  |
+| Space and UP | Either makes the player jump.                |
+| DOWN         | Makes the player duck.                       |
 
 ### Why did you name it "Bolan.py?"
 
@@ -26,12 +27,7 @@ Inspiration was taken from Google's development of the original Chrome game. Bef
 
 ### Content Limitations
 
-While the game was made to best mirror that of the original's, it does have its shortcomings. The following have yet to be included in current version of the project:
-
-- Day/night Cycle
-- Pterodactyls
-
-As of now, the author does not have any intentions of adding such features to the game but both make for great potential contributions to the repository.
+While the game was made to best mirror that of the original's, it does have its shortcomings. Specifically, it has yet to support a proper **day/night cycle**. As of now, the author does not have any intentions of adding such a feature to the game but it would make for a great contribution to the repository.
 
 ### Spritesheet Utilization
 
@@ -59,10 +55,16 @@ For reference, the ```SpriteSheet``` class used by the repository can be found i
 
 ## Contributing
 
+### Guidelines
+
 Pull requests are welcome for those that would like to make a contribution. On that note, for those that would like to apply major changes to the repository, we'd like to request that you open up an issue first and discuss the changes you'd like to make.
 
-Those that have contributed to the project thus far include:
-- **WilliWonka91** - Added code to allow the player to restart the program's gameplay from the gameover gamestate using either the RETURN or R keys.
+### Contributors
+
+**WilliWonka91** 
+
+- Allow the player to restart the program's gameplay from the gameover gamestate using either the RETURN or R keys.
+- Added support for Pterodactyls. 
 
 ## License
 

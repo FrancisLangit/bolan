@@ -306,24 +306,24 @@ class Bolan:
 		"""
 		Updates Bolan.
 		"""
-		self._increment_animation()
+		self._increment_animation(self.settings.bolan_update_rate)
 		self._update_sprite(self.image_frame, self.image_index)
 		self._player_control()
 
 
-	def _increment_animation(self):
+	def _increment_animation(self, update_rate):
 		"""
 		Defines the rate at which Bolan's images change.
 		"""
 		self.image_frame += 1
-		if self.image_frame == self.settings.bolan_update_rate: 
+		if self.image_frame == update_rate: 
 			self.image_frame = 0
 			self.image_index += 1
 
 
 	def _update_sprite(self, image_frame, image_index):
 		"""
-		Changes Bolan's sprite.
+		Updates Bolan's sprite.
 		"""
 		if self.rect.y < self.default_y:
 			self.image = self.settings.bolan_standing_image
@@ -397,35 +397,49 @@ class Obstacle:
 		self.settings = bolan_game.settings
 
 		self.x = x
+
 		# Image attributes
 		self.image_frame = 0
 		self.image_index = 0
-		self.images_Pterodactyl = self.settings.pterodactyl_images
-		self.images_Cacti = self.settings.cactus_images
+		self.images_pterodactyl = self.settings.pterodactyl_images
+		self.images_cacti = self.settings.cactus_images
 		self._initialize_image_attributes()
 
 
 	def _initialize_image_attributes(self):
 		"""
 		Initializes self.images, self.rect, and self.rect.topleft.
-		Randomizes between Cacti or Pterodactyl if score is high enough
-		"""
 		
-		if self.bolan_game.scoreboard.score<self.settings.pterodactyl_min_score:
-			self.is_Cactus=True
-		else:
-			self.is_Cactus= random.choice([True,False])
-			
-		if self.is_Cactus:
-			self.images=self.images_Cacti
-			self.y=530
-		else:
-			self.images=self.images_Pterodactyl
-			self.y= random.choice([520,460,410])
-			#520: jump	#460: duck or jump	#410: walk under, no jump over
+		Randomizes between Cacti or Pterodactyl if score is equal to or above
+		10,000 points.
+		"""
+		self.is_Cactus = True
+		self._check_pterodactyl_min_score()
+		self._choose_obstacle()
 		self.image = random.choice(self.images)
-		self.rect = self.image.get_rect(midbottom=(self.x, self.y))
+		self.rect = self.image.get_rect(midbottom = (self.x, self.y))
 		self.mask = pygame.mask.from_surface(self.image)
+
+
+	def _check_pterodactyl_min_score(self):
+		"""
+		Allows game to start spawning Pterodactyls if score is equal to or
+		above 10,000 points.
+		"""
+		if self.bolan_game.scoreboard.score > self.settings.pterodactyl_min_score:
+			self.is_Cactus = random.choice([True, False])
+
+
+	def _choose_obstacle(self):
+		"""
+		Randomly chooses whether to spawn a Cactus or Pterodactyl obstacle. 
+		"""
+		if self.is_Cactus:
+			self.images = self.images_cacti
+			self.y = 530
+		else:
+			self.images = self.images_pterodactyl
+			self.y = random.choice(self.settings.pterodactyl_heights)
 
 
 	def _update_sprite(self, image_frame, image_index):
@@ -473,7 +487,8 @@ class Obstacles:
 		"""
 		self.bolan_game = bolan_game
 		self.settings = bolan_game.settings
-		self.obstacles = [Obstacle(bolan_game, x) for x in range(1400, 2800, 700)]
+		self.obstacles = [
+			Obstacle(bolan_game, x) for x in range(1400, 2800, 700)]
 
 
 	def update(self):
