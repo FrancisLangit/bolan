@@ -41,6 +41,7 @@ class BolanGame:
 		self.bolan = objects.Bolan(self)
 		self.obstacles = objects.Obstacles(self)
 
+
 	def run(self):
 		"""
 		Start the game's main loop.
@@ -74,8 +75,7 @@ class BolanGame:
 		Checks keydown events.
 		"""
 		if event.key in (pygame.K_q, pygame.K_ESCAPE):
-			self._save_highscore()
-			sys.exit()
+			self._exit_program()
 		elif self.is_play:
 			self._check_keydown_play_events(event)
 		elif self.is_gameover:
@@ -124,12 +124,13 @@ class BolanGame:
 		self.obstacles._reset_positions()
 
 
-	def _save_highscore(self):
+	def _exit_program(self):
 		"""
-		Saves the highscore upon the exiting of the program.
+		Saves the highscore and exits the program.
 		"""
 		with open("game_assets/highscore.txt", 'w') as highscore:
 			highscore.write(str(self.scoreboard.highscore))
+		sys.exit()
 
 
 	def _update_screen(self):
