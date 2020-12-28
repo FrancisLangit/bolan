@@ -8,7 +8,7 @@ from spritesheet import SpriteSheet
 
 class BolanGame:
 	""" 
-	Overall class to manage game ass`ets and behavior.
+	Overall class to manage game assets and behavior.
 	"""
 
 
