@@ -74,22 +74,27 @@ class BolanGame:
 		Checks keydown events.
 		"""
 		if event.key in (pygame.K_q, pygame.K_ESCAPE):
-			# Save highscore before exiting program.
-			with open("game_assets/highscore.txt", 'w') as highscore:
-				highscore.write(str(self.scoreboard.highscore))
+			self._save_highscore()
 			sys.exit()
-		if self.is_play:
-			if (event.key == pygame.K_SPACE or event.key == pygame.K_UP) and (
-				self.bolan.rect.y >= self.bolan.default_y):
-				self.bolan.is_jump = True
-			if event.key == pygame.K_DOWN:
-				self.bolan.is_duck = True
+		elif self.is_play:
+			self._check_keydown_play_events(event)
 		elif self.is_gameover:
-			if event.key == pygame.K_RETURN or event.key == pygame.K_r:
+			if event.key in (pygame.K_RETURN, pygame.K_r):
 				self._reset_game()
 		else:
 			if event.key == pygame.K_RETURN:
 				self.is_play = True
+
+
+	def _check_keydown_play_events(self, event):
+		"""
+		Keydown events when is_play is True.
+		"""
+		if (event.key in (pygame.K_SPACE, pygame.K_UP)) and (
+			self.bolan.rect.y >= self.bolan.default_y):
+			self.bolan.is_jump = True
+		if event.key == pygame.K_DOWN:
+			self.bolan.is_duck = True
 
 
 	def _check_keyup_events(self, event):
@@ -117,6 +122,15 @@ class BolanGame:
 		self.bolan.rect.y = self.bolan.default_y
 		self.scoreboard.score = 0
 		self.obstacles._reset_positions()
+
+
+	def _save_highscore(self):
+		"""
+		Saves the highscore upon the exiting of the program.
+		"""
+		with open("game_assets/highscore.txt", 'w') as highscore:
+			highscore.write(str(self.scoreboard.highscore))
+
 
 	def _update_screen(self):
 		"""
@@ -167,6 +181,7 @@ class BolanGame:
 		self.obstacles.blitme()
 		self._blit_text()
 		self.scoreboard.blitme()
+
 
 	def _blit_text(self):
 		if not self.is_play and not self.is_gameover:
