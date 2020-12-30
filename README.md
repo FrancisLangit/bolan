@@ -33,7 +33,7 @@ While the game was made to best mirror that of the original's, it does have its 
 
 ### Spritesheet Utilization
 
-The project makes use of a single sprite sheet to blit its 2D assets onto the screen. This was done in order to increase performance instead of using multiple differently blitted image files. In doing so, the author made use of a borrowed version of [Eric Matthes's  ```SpriteSheet```  class](https://ehmatthes.github.io/pcc_2e/beyond_pcc/pygame_sprite_sheets/) (as displayed above) in order to effectively manipulate the images in the sheet. 
+The project makes use of a single sprite sheet to blit its 2D assets onto the screen. This was done in order to increase performance instead of using multiple differently blitted image files. In doing so, the author made use of a borrowed version of [Eric Matthes's  ```SpriteSheet```  class](https://ehmatthes.github.io/pcc_2e/beyond_pcc/pygame_sprite_sheets/) in order to effectively manipulate the images in the sheet. 
 
 For reference, the ```SpriteSheet``` class used by the repository can be found in ```spritesheet.py```.
 
@@ -65,7 +65,7 @@ Pull requests are welcome for those that would like to make a contribution. On t
 
 **WilliWonka91** 
 
-- Allow the player to restart the program's gameplay from the gameover gamestate using either the RETURN or R keys.
+- Restart the program's gameplay from the gameover gamestate using either the RETURN or R keys.
 - Added support for Pterodactyls. 
 
 ## License
