@@ -1,4 +1,4 @@
-![banner](readme_assets/banner.png)
+![banner](readme_banner.png)
 
 Bolan.py is a clone of Google Chrome's well-known [Dinosaur Game](https://en.wikipedia.org/wiki/Dinosaur_Game) written on Python 3 using the [Pygame](https://www.pygame.org/wiki/about) game development framework. 
 
@@ -10,7 +10,7 @@ The player takes control of a T-Rex running across an infinite desert. The main 
 
 **Note**: *Pterodactyls only start spawning at 350 points.*
 
-![readme_gif.gif](readme_assets/readme_gif.gif)
+![readme_gif.gif](readme_gif.gif)
 
 ### Controls
 
@@ -47,7 +47,7 @@ For reference, the ```SpriteSheet``` class used by the repository can be found i
 
 3. Clone the repository (or download it as a .zip file and extract it).
 
-4. Navigate to the repository's directory and run `main.py`. One may do so by double-clicking `main.py` or by using a command line interface and entering the following:
+4. Navigate to the repository's `/bolan` directory and run `main.py`. One may do so by double-clicking `main.py` or by using a command line interface and entering the following:
 
    ```
    $ python3 main.py
@@ -61,14 +61,7 @@ For reference, the ```SpriteSheet``` class used by the repository can be found i
 
 Pull requests are welcome for those that would like to make a contribution. On that note, for those that would like to apply major changes to the repository, we'd like to request that you open up an issue first and discuss the changes you'd like to make.
 
-### Contributors
-
-**WilliWonka91** 
-
-- Restart the program's gameplay from the gameover gamestate using either the RETURN or R keys.
-- Added support for Pterodactyls. 
-
 ## License
 
-MIT License
+[MIT License](LICENSE.txt)
 
